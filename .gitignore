@@ -1,2 +1,5 @@
 .project
 .springBeans
+.idea/
+target/
+nomina.iml
