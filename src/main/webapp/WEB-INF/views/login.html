@@ -18,30 +18,37 @@
 <div class="container">
     <p><br/></p>
     <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4"></div>
-        <div class="panel panel-default">
-            <div class="panel-body">
-                Basic panel example
+        <div class="col-md-8"></div>
+        <div class="col-md-4 col-md-pull-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="page-header">
+                        <h3 align="center">Cascada</h3>
+                    </div>
+                    <form th:action="@{/departamento}" role="form-signin" method="get">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Usuario</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Introduzca usuario"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Clave</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-star"></span></span>
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Introduzca clave"/>
+                            </div>
+                        </div>
+                        <hr/>
+                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-lock"></span> Acceder</button>
+                        <p><br/></p>
+                    </form>
+                </div>
             </div>
         </div>
-        <form class="form-signin">
-            <h2 class="form-signin-heading">Please sign in</h2>
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="required"
-                   autofocus="autofocus"/>
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required"/>
-
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="remember-me"/>
-                </label>
-            </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        </form>
-    </div> <!-- /row -->
-</div> <!-- /container -->
+    </div>
+</div>
 
 
 <!-- SCRIPTS -->
