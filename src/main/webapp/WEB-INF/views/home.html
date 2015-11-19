@@ -9,68 +9,73 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap-theme.min.css"/>
-
-    <style>
-        body {
-            padding-top: 20px;
-            padding-bottom: 20px;
-        }
-    </style>
-
 </head>
 <body>
+<div th:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
 
 
-<div class="container">
-    <!-- Static navbar -->
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Project name</a>
+                    <form>
+                        <fieldset class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"/>
+                            <small class="text-muted">We'll never share your email with anyone else.</small>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1"
+                                   placeholder="Password"/>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <label for="exampleSelect1">Example select</label>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <label for="exampleSelect2">Example multiple select</label>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <label for="exampleTextarea">Example textarea</label>
+                            <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <label for="exampleInputFile">File input</label>
+                            <input type="file" class="form-control-file" id="exampleInputFile"/>
+                            <small class="text-muted">This is some placeholder block-level help text for the above
+                                input. It's a bit lighter and easily wraps to a new line.
+                            </small>
+                        </fieldset>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"
+                                       checked="checked"/>
+                                Option one is this and that&mdash;be sure to include why it's great
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"/>
+                                Option two can be something else and selecting it will deselect option one
+                            </label>
+                        </div>
+                        <div class="radio disabled">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3"
+                                       disabled="disabled"/>
+                                Option three is disabled
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"/> Check me out
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+
             </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a th:href="@{/departamento}" >Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Nav header</li>
-                            <li><a href="#">Separated link</a></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
-                    <li><a href="../navbar-static-top/">Static top</a></li>
-                    <li><a href="../navbar-fixed-top/">Fixed top</a></li>
-                </ul>
-            </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
-    </nav>
-
+        </div>
+    </div>
 </div>
-
-
-<!-- SCRIPTS -->
-<script type="text/javascript" src="../../resources/js/plugins/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="../../resources/js/plugins/jquery/jquery-ui.min.js"></script>
-<script type="text/javascript" src="../../resources/js/bootstrap.min.js"></script>
-
 </body>
 </html>
