@@ -1,5 +1,6 @@
 package com.cascada.controller;
 
+import com.cascada.annotations.Layout;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import java.util.Locale;
  */
 
 @Controller
+@Layout(value="layouts/default")
 public class DepartamentoController {
 
     @RequestMapping(value = "/departamento", method = RequestMethod.GET)

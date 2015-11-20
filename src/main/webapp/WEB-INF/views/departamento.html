@@ -7,26 +7,72 @@
 </head>
 
 <body>
+<div th:fragment="content">
+    <div class="container">
 
-<div class="container">
+        <!-- Create Button -->
+        <button type="button" class="btn btn-primary">
+            <span class="glyphicon glyphicon-plus"></span>Crear
+        </button>
 
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
-        <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
-        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
-    </ul>
+        <!-- Table -->
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Factoría</td>
+                    <td>Factoria de Software</td>
+                    <td>Activo</td>
+                    <td>
+                        <a href="">
+                            <span class="glyphicon glyphicon-edit">
 
-    <!-- Tab panes -->
-    <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="home">...</div>
-        <div role="tabpanel" class="tab-pane" id="profile">...</div>
-        <div role="tabpanel" class="tab-pane" id="messages">...</div>
-        <div role="tabpanel" class="tab-pane" id="settings">...</div>
+                            </span>
+                            Editar
+                        </a>
+                        <a href="">
+                            <span class="glyphicon glyphicon-trash">
+
+                            </span>
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Gestion Humana</td>
+                    <td>Recursos Humanos</td>
+                    <td>Activo</td>
+                    <td>
+                        <a href="">
+                            <span class="glyphicon glyphicon-edit">
+
+                            </span>
+                            Editar
+                        </a>
+                        <a href="">
+                            <span class="glyphicon glyphicon-trash">
+
+                            </span>
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
-
 </div>
-
 </body>
 </html>
