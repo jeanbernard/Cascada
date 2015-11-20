@@ -16,12 +16,14 @@ public class DepartamentoController {
 
     @RequestMapping(value = "/departamento", method = RequestMethod.GET)
     public String home(Model model) {
-        return "departamento";
+        model.addAttribute("page", "departamento");
+        return "departamento/departamento";
     }
 
     @RequestMapping(value = "/departamento/crear", method = RequestMethod.GET)
     public String crearDepartamento(Model model) {
-        return "crearDepartamento";
+        model.addAttribute("page", "departamento");
+        return "departamento/crearDepartamento";
     }
 
 

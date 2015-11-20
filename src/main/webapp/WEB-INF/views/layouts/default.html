@@ -4,6 +4,7 @@
 <head>
 
     <!-- META -->
+    <title>Cascada</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -21,7 +22,7 @@
 
 
 <body>
-<div th:replace="fragments/header :: header">
+<div th:replace="fragments/header :: header(page=${page})">
     Header
 </div>
 <div th:replace="${view} :: content">
