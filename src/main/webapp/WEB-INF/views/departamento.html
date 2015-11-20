@@ -9,9 +9,11 @@
 <body>
 <div th:fragment="content">
     <div class="container">
+        <form th:action="@{/departamento/crear/}" method="get">
+
 
         <!-- Create Button -->
-        <button type="button" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary">
             <span class="glyphicon glyphicon-plus"></span>Crear
         </button>
 
@@ -71,8 +73,9 @@
                 </tbody>
             </table>
         </div>
-
+        </form>
     </div>
+
 </div>
 </body>
 </html>
