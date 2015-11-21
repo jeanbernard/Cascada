@@ -3,7 +3,7 @@ package com.cascada.domain;
 /**
  * Created by jeanbernard on 11/17/15.
  */
-public class Departamento {
+public class Department {
 
     private int id;
     private String nombre;
