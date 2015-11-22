@@ -20,7 +20,10 @@
                 <textarea class="form-control" th:field="*{descripcion}" id="descripcion" placeholder="Introduzca una descripción"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Guardar</button>
-            <button type="submit" class="btn btn-success">Cancelar</button>
+            <a href="#" th:href="@{/departamento}">
+                <button type="button" value="cancel" class="btn btn-success">Cancelar
+                </button>
+            </a>
         </form>
     </div>
 
