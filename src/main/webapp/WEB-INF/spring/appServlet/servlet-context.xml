@@ -16,7 +16,7 @@
 
 	<!-- Spring Beans -->
 
-	<bean id="departmentRepository" class="com.cascada.repository.DepartmentRepositoryImpl">
+	<bean id="departmentRepository" class="com.cascada.repository.DepartamentoRepositoryImpl">
 
 	</bean>
 	<!-- Thymeleaf -->
