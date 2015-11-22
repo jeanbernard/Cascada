@@ -1,13 +1,11 @@
-package com.cascada.repository;
+package com.cascada.service;
 
 import com.cascada.domain.Departamento;
 import com.cascada.domain.DepartamentoEntity;
 
 /**
- * Created by jeanbernard on 11/20/15.
+ * Created by jeanbernard on 11/22/15.
  */
-public interface DepartamentoRepository {
-
+public interface DepartamentoService {
     DepartamentoEntity saveDepartamento(DepartamentoEntity departamento);
-
 }
