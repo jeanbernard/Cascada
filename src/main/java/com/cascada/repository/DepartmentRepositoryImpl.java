@@ -9,7 +9,12 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
 
 
     @Override
-    public Department saveDepartment(Department departament) {
-        return null;
+    public Department saveDepartment() {
+
+        Department department = new Department();
+        department.setNombre("Factoria");
+        department.setDescripcion("Factoria de Software");
+
+        return department;
     }
 }

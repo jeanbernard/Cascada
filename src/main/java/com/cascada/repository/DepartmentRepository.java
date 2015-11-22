@@ -7,6 +7,6 @@ import com.cascada.domain.Department;
  */
 public interface DepartmentRepository {
 
-    Department saveDepartment(Department departament);
+    Department saveDepartment();
 
 }

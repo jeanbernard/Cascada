@@ -2,6 +2,8 @@ package com.cascada.controller;
 
 import com.cascada.annotations.Layout;
 import com.cascada.domain.Department;
+import com.cascada.repository.DepartmentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,22 +17,31 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Layout(value="layouts/default")
 public class DepartmentController {
 
+    public void setDepartmentRepository(DepartmentRepository departmentRepository) {
+        this.departmentRepository = departmentRepository;
+    }
+
+    @Autowired
+    private DepartmentRepository departmentRepository;
+
+
     @RequestMapping(value = "/department", method = RequestMethod.GET)
     public String home(Model model) {
         model.addAttribute("page", "department");
         return "department/department";
     }
 
-    @RequestMapping(value = "/department/crear", method = RequestMethod.GET)
-    public String creardepartment(Model model) {
+    @RequestMapping(value = "/department/createDepartment", method = RequestMethod.GET)
+    public String createDepartment(Model model) {
         model.addAttribute("page", "department");
+        model.addAttribute("department", new Department());
         return "department/createDepartment";
     }
 
-    @RequestMapping(value="department/crear", method=RequestMethod.POST)
-    public String guardardepartment(Department department) {
-
-        return "redirect:/crear";
+    @RequestMapping(value="department/createDepartment", method=RequestMethod.POST)
+    public String submitDepartment(Department department) {
+        departmentRepository.saveDepartment();
+        return "redirect:/department/createDepartment/";
     }
 
 
