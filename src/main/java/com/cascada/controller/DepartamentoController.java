@@ -7,6 +7,7 @@ import com.cascada.service.DepartamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -49,16 +50,19 @@ public class DepartamentoController {
     }
 
     @RequestMapping(value="departamento/editarDepartamento", method=RequestMethod.GET)
-    public String updateDepartamento(Model model, HttpSession httpSession) {
+    public String updateDepartamento(Model model, HttpSession session) {
+
+        DepartamentoEntity dept = departamentoService.findDepartment(1L);
+
         model.addAttribute("page", "departamento");
-        model.addAttribute("dept", departamentoService.findDepartment(1L));
+        model.addAttribute("dept", dept);
+
         return "/departamento/editarDepartamento";
     }
 
     @RequestMapping(value="departamento/editarDepartamento", method=RequestMethod.POST)
-    public String updateDepartamento(DepartamentoEntity departamentoEntity, Model model) {
-        model.addAttribute("dept", departamentoService.findDepartment(1L));
-        //departamentoService.saveDepartamento(dept);
+    public String updateDepartamento(@ModelAttribute DepartamentoEntity dept) {
+        departamentoService.updateDepartamento(dept);
         return "redirect:/departamento/";
     }
 

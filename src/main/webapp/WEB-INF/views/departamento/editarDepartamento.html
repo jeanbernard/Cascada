@@ -24,6 +24,13 @@
                 <button type="button" value="cancel" class="btn btn-success">Cancelar
                 </button>
             </a>
+
+            <input type="hidden" id="departmentId" th:field="*{departamentoId}"
+                th:value="*{departamentoId}"/>
+
+            <input type="hidden" id="departmentEstado"
+                th:field="*{estado}" th:value="*{estado}"/>
+
         </form>
     </div>
 

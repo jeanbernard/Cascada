@@ -35,7 +35,8 @@ private EntityManager entityManager;
 
     @Override
     public DepartamentoEntity updateDepartment(DepartamentoEntity departamento) {
-        entityManager.merge(departamento.getDepartamentoId());
+        entityManager.merge(departamento);
+        entityManager.flush();
         return departamento;
     }
 

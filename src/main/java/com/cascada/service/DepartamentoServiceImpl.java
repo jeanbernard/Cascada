@@ -33,7 +33,6 @@ private DepartamentoRepository departamentoRepository;
 
     @Override
     public DepartamentoEntity updateDepartamento(DepartamentoEntity departamento) {
-        departamento.setEstado(1L);
         return departamentoRepository.updateDepartment(departamento);
     }
 
