@@ -12,5 +12,7 @@ public interface DepartamentoRepository {
 
     DepartamentoEntity saveDepartamento(DepartamentoEntity departamento);
     List<DepartamentoEntity> findAllDepartments();
+    DepartamentoEntity findDepartment(Long departmentId);
+    DepartamentoEntity updateDepartment(DepartamentoEntity departamento);
 
 }

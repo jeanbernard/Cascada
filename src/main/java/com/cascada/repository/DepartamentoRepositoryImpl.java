@@ -33,5 +33,16 @@ private EntityManager entityManager;
         return query.getResultList();
     }
 
+    @Override
+    public DepartamentoEntity updateDepartment(DepartamentoEntity departamento) {
+        entityManager.merge(departamento.getDepartamentoId());
+        return departamento;
+    }
 
+    @Override
+    public DepartamentoEntity findDepartment(Long departmentId) {
+        TypedQuery query = entityManager.createNamedQuery(DepartamentoEntity.FIND_DEPARTMENT, DepartamentoEntity.class);
+        query.setParameter("deptId", departmentId);
+        return (DepartamentoEntity) query.getSingleResult();
+    }
 }

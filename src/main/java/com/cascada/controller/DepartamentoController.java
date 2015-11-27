@@ -1,6 +1,7 @@
 package com.cascada.controller;
 
 import com.cascada.annotations.Layout;
+import com.cascada.domain.Departamento;
 import com.cascada.domain.DepartamentoEntity;
 import com.cascada.service.DepartamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -43,6 +45,20 @@ public class DepartamentoController {
     @RequestMapping(value="departamento/crearDepartamento", method=RequestMethod.POST)
     public String guardarDepartment(DepartamentoEntity DepartamentoEntity) {
         departamentoService.saveDepartamento(DepartamentoEntity);
+        return "redirect:/departamento/";
+    }
+
+    @RequestMapping(value="departamento/editarDepartamento", method=RequestMethod.GET)
+    public String updateDepartamento(Model model, HttpSession httpSession) {
+        model.addAttribute("page", "departamento");
+        model.addAttribute("dept", departamentoService.findDepartment(1L));
+        return "/departamento/editarDepartamento";
+    }
+
+    @RequestMapping(value="departamento/editarDepartamento", method=RequestMethod.POST)
+    public String updateDepartamento(DepartamentoEntity departamentoEntity, Model model) {
+        model.addAttribute("dept", departamentoService.findDepartment(1L));
+        //departamentoService.saveDepartamento(dept);
         return "redirect:/departamento/";
     }
 

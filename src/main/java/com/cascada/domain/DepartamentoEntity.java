@@ -8,11 +8,13 @@ import javax.persistence.*;
 @Entity
 @Table(name = "DEPARTAMENTO", schema = "Cascada", catalog = "")
 @NamedQueries({
-        @NamedQuery(name=DepartamentoEntity.FIND_ALL_DEPARTMENTS, query="Select distinct d from DepartamentoEntity d")
+        @NamedQuery(name=DepartamentoEntity.FIND_ALL_DEPARTMENTS, query="Select distinct d from DepartamentoEntity d"),
+        @NamedQuery(name=DepartamentoEntity.FIND_DEPARTMENT, query="Select distinct d from DepartamentoEntity d where d.departamentoId=:deptId")
 })
 public class DepartamentoEntity {
 
     public static final String FIND_ALL_DEPARTMENTS = "findAllDepartments";
+    public static final String FIND_DEPARTMENT = "findDepartment";
 
     private Long departamentoId;
     private String nombre;

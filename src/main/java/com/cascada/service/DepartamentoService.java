@@ -11,4 +11,7 @@ import java.util.List;
 public interface DepartamentoService {
     DepartamentoEntity saveDepartamento(DepartamentoEntity departamento);
     List<DepartamentoEntity> findAllDepartments();
+    DepartamentoEntity findDepartment(Long departmentId);
+    DepartamentoEntity updateDepartamento(DepartamentoEntity departamento);
+
 }

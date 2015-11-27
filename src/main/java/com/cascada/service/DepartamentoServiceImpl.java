@@ -14,13 +14,13 @@ import java.util.List;
  */
 
 @Service
+@Transactional
 public class DepartamentoServiceImpl implements DepartamentoService {
 
 @Autowired
 private DepartamentoRepository departamentoRepository;
 
     @Override
-    @Transactional
     public DepartamentoEntity saveDepartamento(DepartamentoEntity departamento) {
         departamento.setEstado(1L);
         return departamentoRepository.saveDepartamento(departamento);
@@ -29,5 +29,16 @@ private DepartamentoRepository departamentoRepository;
     @Override
     public List<DepartamentoEntity> findAllDepartments() {
         return departamentoRepository.findAllDepartments();
+    }
+
+    @Override
+    public DepartamentoEntity updateDepartamento(DepartamentoEntity departamento) {
+        departamento.setEstado(1L);
+        return departamentoRepository.updateDepartment(departamento);
+    }
+
+    @Override
+    public DepartamentoEntity findDepartment(Long departmentId) {
+        return departamentoRepository.findDepartment(departmentId);
     }
 }
