@@ -4,5 +4,15 @@
              version="2.0">
     <persistence-unit name="punit">
         <class>com.cascada.domain.DepartamentoEntity</class>
+        <class>com.cascada.domain.DeduccionEntity</class>
+        <class>com.cascada.domain.DeduccionDetalleEntity</class>
+        <class>com.cascada.domain.EmpleadoEntity</class>
+        <class>com.cascada.domain.EmpleadoDeduccionEntity</class>
+        <class>com.cascada.domain.EmpleadoIngresoEntity</class>
+        <class>com.cascada.domain.IngresoEntity</class>
+        <class>com.cascada.domain.NominaEntity</class>
+        <class>com.cascada.domain.NominaTransaccionEntity</class>
+        <class>com.cascada.domain.PeriodoEntity</class>
+        <class>com.cascada.domain.PuestoEntity</class>
     </persistence-unit>
 </persistence>

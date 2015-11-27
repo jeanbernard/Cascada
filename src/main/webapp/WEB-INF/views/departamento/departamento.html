@@ -11,7 +11,7 @@
     <div class="container">
         <form th:action="@{/departamento/crearDepartamento/}" method="get">
             <div class="page-header">
-                <h1>Departamento</h1>
+                <h1>Departamentos</h1>
             </div>
         <!-- Create Button -->
         <button type="submit" class="btn btn-primary">
@@ -23,7 +23,6 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Nombre</th>
                     <th>Descripción</th>
                     <th>Estado</th>
@@ -31,31 +30,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Factoría</td>
-                    <td>Factoria de Software</td>
-                    <td>Activo</td>
-                    <td>
-                        <a href="">
-                            <span class="glyphicon glyphicon-edit">
-
-                            </span>
-                            Editar
-                        </a>
-                        <a href="">
-                            <span class="glyphicon glyphicon-trash">
-
-                            </span>
-                            Eliminar
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Gestion Humana</td>
-                    <td>Recursos Humanos</td>
-                    <td>Activo</td>
+                <tr th:each="dept : ${departamentos}">
+                    <td th:text="${dept.nombre}"></td>
+                    <td th:text="${dept.descripcion}"></td>
+                    <td th:text="${dept.estado == 1 ? 'Activo' : 'Inactivo'}"></td>
                     <td>
                         <a href="">
                             <span class="glyphicon glyphicon-edit">
@@ -74,6 +52,7 @@
                 </tbody>
             </table>
         </div>
+
         </form>
     </div>
 

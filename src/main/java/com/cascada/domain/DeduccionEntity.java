@@ -1,37 +1,31 @@
 package com.cascada.domain;
 
 import javax.persistence.*;
+import java.math.BigInteger;
 
 /**
  * Created by jeanbernard on 11/26/15.
  */
 @Entity
-@Table(name = "DEPARTAMENTO", schema = "Cascada", catalog = "")
-@NamedQueries({
-        @NamedQuery(name=DepartamentoEntity.FIND_ALL_DEPARTMENTS, query="Select distinct d from DepartamentoEntity d")
-})
-public class DepartamentoEntity {
-
-    public static final String FIND_ALL_DEPARTMENTS = "findAllDepartments";
-
-    private Long departamentoId;
+@Table(name = "DEDUCCION", schema = "Cascada", catalog = "")
+public class DeduccionEntity {
+    private int deduccionId;
     private String nombre;
     private String descripcion;
-    private Long estado;
+    private BigInteger estado;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "DEPARTAMENTO_ID", nullable = false)
-    public Long getDepartamentoId() {
-        return departamentoId;
+    @Column(name = "DEDUCCION_ID", nullable = false)
+    public int getDeduccionId() {
+        return deduccionId;
     }
 
-    public void setDepartamentoId(Long departamentoId) {
-        this.departamentoId = departamentoId;
+    public void setDeduccionId(int deduccionId) {
+        this.deduccionId = deduccionId;
     }
 
     @Basic
-    @Column(name = "NOMBRE", nullable = false, length = 200)
+    @Column(name = "NOMBRE", nullable = false, length = 45)
     public String getNombre() {
         return nombre;
     }
@@ -41,7 +35,7 @@ public class DepartamentoEntity {
     }
 
     @Basic
-    @Column(name = "DESCRIPCION", nullable = true, length = 150)
+    @Column(name = "DESCRIPCION", nullable = true, length = 45)
     public String getDescripcion() {
         return descripcion;
     }
@@ -52,11 +46,11 @@ public class DepartamentoEntity {
 
     @Basic
     @Column(name = "ESTADO", nullable = false, precision = 0)
-    public Long getEstado() {
+    public BigInteger getEstado() {
         return estado;
     }
 
-    public void setEstado(Long estado) {
+    public void setEstado(BigInteger estado) {
         this.estado = estado;
     }
 
@@ -65,13 +59,22 @@ public class DepartamentoEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        DepartamentoEntity that = (DepartamentoEntity) o;
+        DeduccionEntity that = (DeduccionEntity) o;
 
-        if (departamentoId != that.departamentoId) return false;
+        if (deduccionId != that.deduccionId) return false;
         if (nombre != null ? !nombre.equals(that.nombre) : that.nombre != null) return false;
         if (descripcion != null ? !descripcion.equals(that.descripcion) : that.descripcion != null) return false;
         if (estado != null ? !estado.equals(that.estado) : that.estado != null) return false;
 
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = deduccionId;
+        result = 31 * result + (nombre != null ? nombre.hashCode() : 0);
+        result = 31 * result + (descripcion != null ? descripcion.hashCode() : 0);
+        result = 31 * result + (estado != null ? estado.hashCode() : 0);
+        return result;
     }
 }
