@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -49,10 +50,10 @@ public class DepartamentoController {
         return "redirect:/departamento/";
     }
 
-    @RequestMapping(value="departamento/editarDepartamento", method=RequestMethod.GET)
-    public String updateDepartamento(Model model, HttpSession session) {
+    @RequestMapping(value="departamento/edit/{departamentoId}", method=RequestMethod.GET)
+    public String updateDepartamento(Model model, @PathVariable(value = "departamentoId") Long departamentoId) {
 
-        DepartamentoEntity dept = departamentoService.findDepartment(1L);
+        DepartamentoEntity dept = departamentoService.findDepartment(departamentoId);
 
         model.addAttribute("page", "departamento");
         model.addAttribute("dept", dept);

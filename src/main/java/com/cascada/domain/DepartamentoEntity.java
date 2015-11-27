@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "DEPARTAMENTO", schema = "Cascada", catalog = "")
 @NamedQueries({
         @NamedQuery(name=DepartamentoEntity.FIND_ALL_DEPARTMENTS, query="Select distinct d from DepartamentoEntity d"),
-        @NamedQuery(name=DepartamentoEntity.FIND_DEPARTMENT, query="Select distinct d from DepartamentoEntity d where d.departamentoId=:deptId")
+        @NamedQuery(name=DepartamentoEntity.FIND_DEPARTMENT, query="Select d from DepartamentoEntity d where d.departamentoId=:deptId")
 })
 public class DepartamentoEntity {
 

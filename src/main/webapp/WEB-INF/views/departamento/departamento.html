@@ -34,8 +34,9 @@
                     <td th:text="${dept.nombre}"></td>
                     <td th:text="${dept.descripcion}"></td>
                     <td th:text="${dept.estado == 1 ? 'Activo' : 'Inactivo'}"></td>
+                    <th th:hidden="hidden" th:text="${dept.departamentoId}"></th>
                     <td>
-                        <a href="" th:href="@{/departamento/editarDepartamento/}">
+                        <a href="" th:href="@{/departamento/edit/{departamentoId}(departamentoId=${dept.departamentoId})}">
                             <span class="glyphicon glyphicon-edit">
 
                             </span>
