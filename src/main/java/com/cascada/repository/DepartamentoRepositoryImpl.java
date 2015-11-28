@@ -1,6 +1,5 @@
 package com.cascada.repository;
 
-import com.cascada.domain.Departamento;
 import com.cascada.domain.DepartamentoEntity;
 import org.springframework.stereotype.Repository;
 

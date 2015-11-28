@@ -2,32 +2,56 @@ package com.cascada.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.util.Date;
 
 /**
  * Created by jeanbernard on 11/26/15.
  */
 @Entity
 @Table(name = "PUESTO", schema = "Cascada", catalog = "")
+@NamedQueries({
+        @NamedQuery(name=PuestoEntity.FIND_ALL_PUESTOS, query="Select distinct p from PuestoEntity p"),
+        @NamedQuery(name=PuestoEntity.FIND_PUESTO, query="Select p from PuestoEntity p where p.puestoId=:puestoId")
+})
 public class PuestoEntity {
-    private int puestoId;
-    private String nombre;
-    private String descripcion;
-    private BigInteger estado;
-    private Serializable creadoEn;
+
+    public static final String FIND_ALL_PUESTOS = "findAllPuestos";
+    public static final String FIND_PUESTO = "findPuesto";
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PUESTO_ID", nullable = false)
-    public int getPuestoId() {
-        return puestoId;
-    }
-
-    public void setPuestoId(int puestoId) {
-        this.puestoId = puestoId;
-    }
+    private Long puestoId;
 
     @Basic
     @Column(name = "NOMBRE", nullable = false, length = 100)
+    private String nombre;
+
+    @Basic
+    @Column(name = "DESCRIPCION", nullable = true, length = 200)
+    private String descripcion;
+
+    @Basic
+    @Column(name = "ESTADO", nullable = false, precision = 0)
+    private Long estado;
+
+    @Basic
+    @Column(name = "CREADO_EN", nullable = false)
+    private Date creadoEn = new Date();
+
+    @ManyToOne
+    @JoinColumn(name = "DEPARTAMENTO_ID", nullable = false,
+            foreignKey = @ForeignKey(name = "DEPARTAMENTO_ID_FK"))
+    private DepartamentoEntity departamentoEntity;
+
+    public Long getPuestoId() {
+        return puestoId;
+    }
+
+    public void setPuestoId(Long puestoId) {
+        this.puestoId = puestoId;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -36,8 +60,6 @@ public class PuestoEntity {
         this.nombre = nombre;
     }
 
-    @Basic
-    @Column(name = "DESCRIPCION", nullable = true, length = 200)
     public String getDescripcion() {
         return descripcion;
     }
@@ -46,24 +68,30 @@ public class PuestoEntity {
         this.descripcion = descripcion;
     }
 
-    @Basic
-    @Column(name = "ESTADO", nullable = false, precision = 0)
-    public BigInteger getEstado() {
+
+    public Long getEstado() {
         return estado;
     }
 
-    public void setEstado(BigInteger estado) {
+    public void setEstado(Long estado) {
         this.estado = estado;
     }
 
-    @Basic
-    @Column(name = "CREADO_EN", nullable = false)
     public Serializable getCreadoEn() {
         return creadoEn;
     }
 
-    public void setCreadoEn(Serializable creadoEn) {
+    public void setCreadoEn(Date creadoEn) {
         this.creadoEn = creadoEn;
+    }
+
+
+    public DepartamentoEntity getDepartamentoEntity() {
+        return departamentoEntity;
+    }
+
+    public void setDepartamentoEntity(DepartamentoEntity departamento) {
+        this.departamentoEntity = departamento;
     }
 
     @Override
@@ -82,13 +110,4 @@ public class PuestoEntity {
         return true;
     }
 
-    @Override
-    public int hashCode() {
-        int result = puestoId;
-        result = 31 * result + (nombre != null ? nombre.hashCode() : 0);
-        result = 31 * result + (descripcion != null ? descripcion.hashCode() : 0);
-        result = 31 * result + (estado != null ? estado.hashCode() : 0);
-        result = 31 * result + (creadoEn != null ? creadoEn.hashCode() : 0);
-        return result;
-    }
 }

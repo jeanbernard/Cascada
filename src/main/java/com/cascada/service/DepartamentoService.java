@@ -1,6 +1,5 @@
 package com.cascada.service;
 
-import com.cascada.domain.Departamento;
 import com.cascada.domain.DepartamentoEntity;
 
 import java.util.List;

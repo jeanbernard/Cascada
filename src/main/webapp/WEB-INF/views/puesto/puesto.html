@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+
+<body>
+<div th:fragment="content">
+
+    <div class="container">
+        <form th:action="@{/puesto/crearPuesto/}" method="get">
+            <div class="page-header">
+                <h1>Puestos</h1>
+            </div>
+            <!-- Create Button -->
+            <button type="submit" class="btn btn-primary">
+                <span class="glyphicon glyphicon-plus"></span>Crear
+            </button>
+            <p><br/></p>
+            <!-- Table -->
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Departamento</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!--<tr th:each="dept : ${departamentos}">-->
+                        <!--<td th:text="${dept.nombre}"></td>-->
+                        <!--<td th:text="${dept.descripcion}"></td>-->
+                        <!--<td th:text="${dept.estado == 1 ? 'Activo' : 'Inactivo'}"></td>-->
+                        <!--<th th:hidden="hidden" th:text="${dept.departamentoId}"></th>-->
+                        <!--<td>-->
+                            <!--<a href="" th:href="@{/departamento/edit/{departamentoId}(departamentoId=${dept.departamentoId})}">-->
+                            <!--<span class="glyphicon glyphicon-edit">-->
+
+                            <!--</span>-->
+                                <!--Editar-->
+                            <!--</a>-->
+                            <!--<a href="">-->
+                            <!--<span class="glyphicon glyphicon-trash">-->
+
+                            <!--</span>-->
+                                <!--Eliminar-->
+                            <!--</a>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    </tbody>
+                </table>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,6 +1,8 @@
 package com.cascada.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jeanbernard on 11/26/15.
@@ -16,14 +18,28 @@ public class DepartamentoEntity {
     public static final String FIND_ALL_DEPARTMENTS = "findAllDepartments";
     public static final String FIND_DEPARTMENT = "findDepartment";
 
-    private Long departamentoId;
-    private String nombre;
-    private String descripcion;
-    private Long estado;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "DEPARTAMENTO_ID", nullable = false)
+    private Long departamentoId;
+
+    @Basic
+    @Column(name = "NOMBRE", nullable = false, length = 200)
+    private String nombre;
+
+    @Basic
+    @Column(name = "DESCRIPCION", nullable = true, length = 150)
+    private String descripcion;
+
+    @Basic
+    @Column(name = "ESTADO", nullable = false, precision = 0)
+    private Long estado;
+
+    @OneToMany(mappedBy = "departamentoEntity", cascade = CascadeType.ALL)
+    private List<PuestoEntity> puestos = new ArrayList<PuestoEntity>();
+
+
+
     public Long getDepartamentoId() {
         return departamentoId;
     }
@@ -32,8 +48,6 @@ public class DepartamentoEntity {
         this.departamentoId = departamentoId;
     }
 
-    @Basic
-    @Column(name = "NOMBRE", nullable = false, length = 200)
     public String getNombre() {
         return nombre;
     }
@@ -42,8 +56,6 @@ public class DepartamentoEntity {
         this.nombre = nombre;
     }
 
-    @Basic
-    @Column(name = "DESCRIPCION", nullable = true, length = 150)
     public String getDescripcion() {
         return descripcion;
     }
@@ -52,14 +64,21 @@ public class DepartamentoEntity {
         this.descripcion = descripcion;
     }
 
-    @Basic
-    @Column(name = "ESTADO", nullable = false, precision = 0)
     public Long getEstado() {
         return estado;
     }
 
     public void setEstado(Long estado) {
         this.estado = estado;
+    }
+
+
+    public List<PuestoEntity> getPuestos() {
+        return puestos;
+    }
+
+    public void setPuestos(List<PuestoEntity> puestos) {
+        this.puestos = puestos;
     }
 
     @Override
