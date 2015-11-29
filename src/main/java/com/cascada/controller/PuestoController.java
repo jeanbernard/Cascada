@@ -31,6 +31,9 @@ public class PuestoController {
 
     @RequestMapping(value="/puesto", method = RequestMethod.GET)
     public String puesto(Model model) {
+
+        List<PuestoEntity> puestos = puestoService.findAllPuestos();
+
         model.addAttribute("page", "puesto");
         return "puesto/puesto";
     }
@@ -39,22 +42,20 @@ public class PuestoController {
     public String crearPuesto(Model model) {
         model.addAttribute("page", "puesto");
         model.addAttribute("puesto", new PuestoEntity());
+        model.addAttribute("departamentos", departamentoService.findAllDepartments());
         return "puesto/crearPuesto";
     }
 
     @RequestMapping(value="puesto/crearPuesto", method=RequestMethod.POST)
     public String guardarPuesto(PuestoEntity puestoEntity) {
-        DepartamentoEntity departamentoEntity = new DepartamentoEntity();
-        departamentoEntity.setDepartamentoId(1L);
-        puestoEntity.setDepartamentoEntity(departamentoEntity);
         puestoService.savePuesto(puestoEntity);
         return "redirect:/puesto/";
     }
 
-    @RequestMapping(value="puesto/crearPuesto/json/departamentos", method = RequestMethod.GET)
-    public @ResponseBody List<DepartamentoEntity> findAllDepartments() {
-        return departamentoService.findAllDepartments();
-    }
+//    @RequestMapping(value="puesto/crearPuesto/json/departamentos", method = RequestMethod.GET)
+//    public @ResponseBody List<DepartamentoEntity> findAllDepartments() {
+//        return departamentoService.findAllDepartments();
+//    }
 
 
 }

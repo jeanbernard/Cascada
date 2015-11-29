@@ -3,9 +3,7 @@
  */
 
 $(document).ready(function() {
-    if($('h1').is('.crearPuesto')) {
-        fillDropdownDept();
-    }
+
 });
 
 
@@ -19,8 +17,9 @@ function fillDropdownDept() {
         dataType: 'json',
         success: function (data) {
             for (var i = 0; i < data.length; i++) {
-                $("#departments").append('<option value="' + data[i].nombre + '">'
+                $("#departments").append('<option value="' + data[i].departamentoId + '">'
                     + data[i].nombre);
+
             }
         }
     });

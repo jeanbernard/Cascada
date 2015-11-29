@@ -25,7 +25,11 @@
             </div>
 
             <div class="control-group">
-               <select id="departments">
+               <select name="departments" id="departments" th:field="${puesto.departamentoEntity.departamentoId}">
+                   <option th:each="dept : ${departamentos}"
+                           th:value="${dept.getDepartamentoId()}"
+                           th:text="${dept.getNombre()}">
+                   </option>
                </select>
             </div>
 
