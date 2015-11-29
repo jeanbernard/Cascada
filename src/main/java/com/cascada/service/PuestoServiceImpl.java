@@ -34,11 +34,11 @@ public class PuestoServiceImpl implements PuestoService {
 
     @Override
     public PuestoEntity findPuesto(Long puestoId) {
-        return null;
+        return puestoRepository.findPuesto(puestoId);
     }
 
     @Override
     public PuestoEntity updatePuesto(PuestoEntity puesto) {
-        return null;
+        return puestoRepository.updatePuesto(puesto);
     }
 }

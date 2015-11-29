@@ -34,11 +34,15 @@ public class PuestoRepositoryImpl implements PuestoRepository {
 
     @Override
     public PuestoEntity findPuesto(Long puestoId) {
-        return null;
+        TypedQuery query = entityManager.createNamedQuery(PuestoEntity.FIND_PUESTO, PuestoEntity.class);
+        query.setParameter("puestoId", puestoId);
+        return (PuestoEntity) query.getSingleResult();
     }
 
     @Override
     public PuestoEntity updatePuesto(PuestoEntity puesto) {
-        return null;
+        entityManager.merge(puesto);
+        entityManager.flush();
+        return puesto;
     }
 }

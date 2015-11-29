@@ -8,9 +8,7 @@ import com.cascada.service.PuestoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -48,6 +46,24 @@ public class PuestoController {
     @RequestMapping(value="puesto/crearPuesto", method=RequestMethod.POST)
     public String guardarPuesto(PuestoEntity puestoEntity) {
         puestoService.savePuesto(puestoEntity);
+        return "redirect:/puesto/";
+    }
+
+    @RequestMapping(value="puesto/edit/{puestoId}", method=RequestMethod.GET)
+    public String updatePuesto(Model model, @PathVariable(value = "puestoId") Long puestoId) {
+
+        PuestoEntity puesto = puestoService.findPuesto(puestoId);
+
+        model.addAttribute("page", "puesto");
+        model.addAttribute("puesto", puesto);
+        model.addAttribute("departamentos", departamentoService.findAllDepartments());
+
+        return "/puesto/editarPuesto";
+    }
+
+    @RequestMapping(value="puesto/editarPuesto", method=RequestMethod.POST)
+    public String updatepuesto(@ModelAttribute PuestoEntity puesto) {
+        puestoService.updatePuesto(puesto);
         return "redirect:/puesto/";
     }
 
