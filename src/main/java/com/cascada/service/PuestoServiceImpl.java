@@ -29,7 +29,7 @@ public class PuestoServiceImpl implements PuestoService {
 
     @Override
     public List<PuestoEntity> findAllPuestos() {
-        return null;
+        return puestoRepository.findAllPuestos();
     }
 
     @Override

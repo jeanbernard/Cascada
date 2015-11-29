@@ -24,20 +24,21 @@
                     <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Descripción</th>
+                        <th>Descripción de Puesto</th>
                         <th>Departamento</th>
                         <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="dept : ${departamentos}">
-                        <td th:text="${dept.nombre}"></td>
-                        <td th:text="${dept.descripcion}"></td>
-                        <td th:text="${dept.estado == 1 ? 'Activo' : 'Inactivo'}"></td>
-                        <th th:hidden="hidden" th:text="${dept.departamentoId}"></th>
+                    <tr th:each="puesto : ${puestos}">
+                        <td th:text="${puesto.nombre}"></td>
+                        <td th:text="${puesto.descripcion}"></td>
+                        <td th:text="${puesto.departamentoEntity.nombre}"></td>
+                        <td th:text="${puesto.estado == 1 ? 'Activo' : 'Inactivo'}"></td>
+                        <th th:hidden="hidden" th:text="${puesto.puestoId}"></th>
                         <td>
-                            <a href="" th:href="@{/departamento/edit/{departamentoId}(departamentoId=${dept.departamentoId})}">
+                            <a href="" th:href="@{/puesto/edit/{puestoId}(puestoId=${puesto.puestoId})}">
                             <span class="glyphicon glyphicon-edit">
 
                             </span>

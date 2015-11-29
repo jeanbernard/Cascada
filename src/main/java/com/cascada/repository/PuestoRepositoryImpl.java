@@ -1,10 +1,12 @@
 package com.cascada.repository;
 
 import com.cascada.domain.PuestoEntity;
+import org.springframework.asm.Type;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -26,7 +28,8 @@ public class PuestoRepositoryImpl implements PuestoRepository {
 
     @Override
     public List<PuestoEntity> findAllPuestos() {
-        return null;
+        TypedQuery<PuestoEntity> query = entityManager.createNamedQuery(PuestoEntity.FIND_ALL_PUESTOS, PuestoEntity.class);
+        return query.getResultList();
     }
 
     @Override

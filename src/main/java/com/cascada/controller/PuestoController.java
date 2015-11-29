@@ -31,10 +31,9 @@ public class PuestoController {
 
     @RequestMapping(value="/puesto", method = RequestMethod.GET)
     public String puesto(Model model) {
-
         List<PuestoEntity> puestos = puestoService.findAllPuestos();
-
         model.addAttribute("page", "puesto");
+        model.addAttribute("puestos", puestos);
         return "puesto/puesto";
     }
 
