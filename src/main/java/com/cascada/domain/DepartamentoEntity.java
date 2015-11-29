@@ -1,5 +1,7 @@
 package com.cascada.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +41,6 @@ public class DepartamentoEntity {
     private List<PuestoEntity> puestos = new ArrayList<PuestoEntity>();
 
 
-
     public Long getDepartamentoId() {
         return departamentoId;
     }
@@ -72,7 +73,7 @@ public class DepartamentoEntity {
         this.estado = estado;
     }
 
-
+    @JsonIgnore
     public List<PuestoEntity> getPuestos() {
         return puestos;
     }
