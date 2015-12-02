@@ -1,21 +1,44 @@
 package com.cascada.domain;
 
 import javax.persistence.*;
-import java.math.BigInteger;
+import java.util.Date;
 
 /**
  * Created by jeanbernard on 11/26/15.
  */
 @Entity
 @Table(name = "INGRESO", schema = "Cascada", catalog = "")
+@NamedQueries({
+        @NamedQuery(name=IngresoEntity.FIND_ALL_INGRESOS, query="Select distinct p from IngresoEntity p"),
+        @NamedQuery(name=IngresoEntity.FIND_INGRESO, query="Select p from IngresoEntity p where p.ingresoId=:ingresoId")
+})
 public class IngresoEntity {
-    private int ingresoId;
-    private String nombre;
-    private String descripcion;
-    private BigInteger estado;
+
+    public static final String FIND_ALL_INGRESOS = "findAllIngresos";
+    public static final String FIND_INGRESO = "findIngreso";
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "INGRESO_ID", nullable = false)
+    private int ingresoId;
+
+    @Basic
+    @Column(name = "NOMBRE", nullable = false, length = 100)
+    private String nombre;
+
+    @Basic
+    @Column(name = "DESCRIPCION", nullable = true, length = 150)
+    private String descripcion;
+
+    @Basic
+    @Column(name = "ESTADO", nullable = false, precision = 0)
+    private Long estado;
+
+    @Basic
+    @Column(name = "CREADO_EN", nullable = false)
+    private Date creadoEn = new Date();
+
+
     public int getIngresoId() {
         return ingresoId;
     }
@@ -24,8 +47,7 @@ public class IngresoEntity {
         this.ingresoId = ingresoId;
     }
 
-    @Basic
-    @Column(name = "NOMBRE", nullable = false, length = 100)
+
     public String getNombre() {
         return nombre;
     }
@@ -34,8 +56,7 @@ public class IngresoEntity {
         this.nombre = nombre;
     }
 
-    @Basic
-    @Column(name = "DESCRIPCION", nullable = true, length = 150)
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -44,13 +65,11 @@ public class IngresoEntity {
         this.descripcion = descripcion;
     }
 
-    @Basic
-    @Column(name = "ESTADO", nullable = false, precision = 0)
-    public BigInteger getEstado() {
+    public Long getEstado() {
         return estado;
     }
 
-    public void setEstado(BigInteger estado) {
+    public void setEstado(Long estado) {
         this.estado = estado;
     }
 
