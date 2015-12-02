@@ -1,31 +1,53 @@
 package com.cascada.domain;
 
 import javax.persistence.*;
-import java.math.BigInteger;
+import java.util.Date;
 
 /**
  * Created by jeanbernard on 11/26/15.
  */
 @Entity
 @Table(name = "DEDUCCION", schema = "Cascada", catalog = "")
+@NamedQueries({
+        @NamedQuery(name=DeduccionEntity.FIND_ALL_DEDUCCIONES, query="Select distinct d from DeduccionEntity d"),
+        @NamedQuery(name=DeduccionEntity.FIND_DEDUCCION, query="Select d from DeduccionEntity d where d.deduccionId=:deduccionId")
+})
 public class DeduccionEntity {
-    private int deduccionId;
-    private String nombre;
-    private String descripcion;
-    private BigInteger estado;
+
+    public static final String FIND_ALL_DEDUCCIONES = "findAlldeducciones";
+    public static final String FIND_DEDUCCION = "findDeduccion";
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "DEDUCCION_ID", nullable = false)
-    public int getDeduccionId() {
+    private Long deduccionId;
+
+    @Basic
+    @Column(name = "NOMBRE", nullable = false, length = 100)
+    private String nombre;
+
+    @Basic
+    @Column(name = "DESCRIPCION", nullable = true, length = 150)
+    private String descripcion;
+
+    @Basic
+    @Column(name = "ESTADO", nullable = false, precision = 0)
+    private Long estado;
+
+    @Basic
+    @Column(name = "CREADO_EN", nullable = false)
+    private Date creadoEn = new Date();
+
+
+    public Long getDeduccionId() {
         return deduccionId;
     }
 
-    public void setDeduccionId(int deduccionId) {
+    public void setDeduccionId(Long deduccionId) {
         this.deduccionId = deduccionId;
     }
 
-    @Basic
-    @Column(name = "NOMBRE", nullable = false, length = 45)
+
     public String getNombre() {
         return nombre;
     }
@@ -34,8 +56,7 @@ public class DeduccionEntity {
         this.nombre = nombre;
     }
 
-    @Basic
-    @Column(name = "DESCRIPCION", nullable = true, length = 45)
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -44,14 +65,20 @@ public class DeduccionEntity {
         this.descripcion = descripcion;
     }
 
-    @Basic
-    @Column(name = "ESTADO", nullable = false, precision = 0)
-    public BigInteger getEstado() {
+    public Long getEstado() {
         return estado;
     }
 
-    public void setEstado(BigInteger estado) {
+    public void setEstado(Long estado) {
         this.estado = estado;
+    }
+
+    public Date getCreadoEn() {
+        return creadoEn;
+    }
+
+    public void setCreadoEn(Date creadoEn) {
+        this.creadoEn = creadoEn;
     }
 
     @Override
@@ -69,12 +96,4 @@ public class DeduccionEntity {
         return true;
     }
 
-    @Override
-    public int hashCode() {
-        int result = deduccionId;
-        result = 31 * result + (nombre != null ? nombre.hashCode() : 0);
-        result = 31 * result + (descripcion != null ? descripcion.hashCode() : 0);
-        result = 31 * result + (estado != null ? estado.hashCode() : 0);
-        return result;
-    }
 }
