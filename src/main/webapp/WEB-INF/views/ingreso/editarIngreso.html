@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+
 </head>
 <body>
+<div th:fragment="content">
+    <div class="container">
+        <form method="post" th:object="${ingreso}" th:action="@{/ingreso/editarIngreso}">
+            <div class="page-header">
+                <h1>Editar Ingreso</h1>
+            </div>
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input class="form-control" th:text="${ingreso.nombre}" th:field="*{nombre}" id="nombre" placeholder="Nombre"/>
+            </div>
+            <div class="form-group">
+                <label for="descripcion">Descripción de Ingreso</label>
+                <textarea class="form-control" th:text="${ingreso.descripcion}" th:field="*{descripcion}" id="descripcion" placeholder="Introduzca una descripción"></textarea>
+            </div>
 
+            <button type="submit" class="btn btn-primary">Guardar</button>
+
+            <a href="#" th:href="@{/ingreso}">
+                <button type="button" value="cancel" class="btn btn-success">Cancelar
+                </button>
+            </a>
+
+            <input type="hidden" id="ingresoId" th:field="*{ingresoId}"
+                   th:value="*{ingresoId}"/>
+
+            <input type="hidden" id="ingresoEstado"
+                   th:field="*{estado}" th:value="*{estado}"/>
+
+        </form>
+    </div>
+
+
+</div>
 </body>
 </html>

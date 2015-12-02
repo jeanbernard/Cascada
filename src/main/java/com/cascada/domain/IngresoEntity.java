@@ -20,7 +20,7 @@ public class IngresoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "INGRESO_ID", nullable = false)
-    private int ingresoId;
+    private Long ingresoId;
 
     @Basic
     @Column(name = "NOMBRE", nullable = false, length = 100)
@@ -39,11 +39,11 @@ public class IngresoEntity {
     private Date creadoEn = new Date();
 
 
-    public int getIngresoId() {
+    public Long getIngresoId() {
         return ingresoId;
     }
 
-    public void setIngresoId(int ingresoId) {
+    public void setIngresoId(Long ingresoId) {
         this.ingresoId = ingresoId;
     }
 
@@ -73,6 +73,14 @@ public class IngresoEntity {
         this.estado = estado;
     }
 
+    public Date getCreadoEn() {
+        return creadoEn;
+    }
+
+    public void setCreadoEn(Date creadoEn) {
+        this.creadoEn = creadoEn;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -88,12 +96,4 @@ public class IngresoEntity {
         return true;
     }
 
-    @Override
-    public int hashCode() {
-        int result = ingresoId;
-        result = 31 * result + (nombre != null ? nombre.hashCode() : 0);
-        result = 31 * result + (descripcion != null ? descripcion.hashCode() : 0);
-        result = 31 * result + (estado != null ? estado.hashCode() : 0);
-        return result;
-    }
 }

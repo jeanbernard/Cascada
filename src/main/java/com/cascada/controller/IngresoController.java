@@ -6,6 +6,8 @@ import com.cascada.service.IngresoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -40,6 +42,23 @@ public class IngresoController {
     @RequestMapping(value="ingreso/crearIngreso", method=RequestMethod.POST)
     public String guardarIngreso(IngresoEntity ingresoEntity) {
         ingresoService.saveIngreso(ingresoEntity);
+        return "redirect:/ingreso/";
+    }
+
+    @RequestMapping(value="ingreso/edit/{ingresoId}", method=RequestMethod.GET)
+    public String updateIngreso(Model model, @PathVariable(value = "ingresoId") Long ingresoId) {
+
+        IngresoEntity ingreso = ingresoService.findIngreso(ingresoId);
+
+        model.addAttribute("page", "ingreso");
+        model.addAttribute("ingreso", ingreso);
+
+        return "/ingreso/editarIngreso";
+    }
+
+    @RequestMapping(value="ingreso/editarIngreso", method=RequestMethod.POST)
+    public String updateIngreso(@ModelAttribute IngresoEntity ingreso) {
+        ingresoService.updateIngreso(ingreso);
         return "redirect:/ingreso/";
     }
 
