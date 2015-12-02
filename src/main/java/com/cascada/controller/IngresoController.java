@@ -2,7 +2,6 @@ package com.cascada.controller;
 
 import com.cascada.annotations.Layout;
 import com.cascada.domain.IngresoEntity;
-import com.cascada.domain.PuestoEntity;
 import com.cascada.service.IngresoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +28,19 @@ public class IngresoController {
         model.addAttribute("page", "ingreso");
         model.addAttribute("ingresos", ingresos);
         return "ingreso/ingreso";
+    }
+
+    @RequestMapping(value="/ingreso/crearIngreso", method = RequestMethod.GET)
+    public String crearIngreso(Model model) {
+        model.addAttribute("page", "ingreso");
+        model.addAttribute("ingreso", new IngresoEntity());
+        return "ingreso/crearIngreso";
+    }
+
+    @RequestMapping(value="ingreso/crearIngreso", method=RequestMethod.POST)
+    public String guardarIngreso(IngresoEntity ingresoEntity) {
+        ingresoService.saveIngreso(ingresoEntity);
+        return "redirect:/ingreso/";
     }
 
 }
