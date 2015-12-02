@@ -27,7 +27,7 @@ public class DeduccionServiceImpl implements DeduccionService {
     }
 
     @Override
-    public List<DeduccionEntity> findAllDeduccions() {
+    public List<DeduccionEntity> findAllDeducciones() {
         return deduccionRepository.findAllDeducciones();
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface DeduccionService {
     DeduccionEntity saveDeduccion(DeduccionEntity deduccion);
-    List<DeduccionEntity> findAllDeduccions();
+    List<DeduccionEntity> findAllDeducciones();
     DeduccionEntity findDeduccion(Long deduccionId);
     DeduccionEntity updateDeduccion(DeduccionEntity deduccion);
 }
