@@ -1,16 +1,15 @@
 package com.cascada.controller;
 
 import com.cascada.annotations.Layout;
+import com.cascada.domain.DepartamentoEntity;
 import com.cascada.domain.EmpleadoEntity;
+import com.cascada.service.DepartamentoService;
 import com.cascada.service.EmpleadoService;
 import com.cascada.service.PuestoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,6 +26,9 @@ public class EmpleadoController {
 
     @Autowired
     private PuestoService puestoService;
+
+    @Autowired
+    private DepartamentoService departamentoService;
 
 
     @RequestMapping(value = "/empleado", method = RequestMethod.GET)
@@ -69,6 +71,11 @@ public class EmpleadoController {
     public String updateEmpleado(@ModelAttribute EmpleadoEntity dept) {
         empleadoService.updateEmpleado(dept);
         return "redirect:/empleado/";
+    }
+
+    @RequestMapping(value="empleado/edit/json/departamentos", method = RequestMethod.GET)
+    public @ResponseBody List<DepartamentoEntity> findAllDepartments() {
+        return departamentoService.findAllDepartments();
     }
 
 

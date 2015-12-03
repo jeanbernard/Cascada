@@ -3,7 +3,9 @@
  */
 
 $(document).ready(function() {
-
+    if($('h1').is('.editarEmpleado')) {
+        fillDropdownDept();
+    }
 });
 
 
@@ -17,7 +19,7 @@ function fillDropdownDept() {
         dataType: 'json',
         success: function (data) {
             for (var i = 0; i < data.length; i++) {
-                $("#departments").append('<option value="' + data[i].departamentoId + '">'
+                $("#departamentosDropdown").append('<option value="' + data[i].departamentoId + '">'
                     + data[i].nombre);
 
             }

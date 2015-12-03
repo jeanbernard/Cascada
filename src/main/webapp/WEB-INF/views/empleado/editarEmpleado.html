@@ -9,7 +9,7 @@
     <div class="container">
         <form method="post" th:object="${empleado}" th:action="@{/empleado/editarEmpleado}">
             <div class="page-header">
-                <h1>Editar Empleado</h1>
+                <h1 class="editarEmpleado">Editar Empleado</h1>
             </div>
             <div class="form-group">
                 <label for="nombre">Nombre</label>
@@ -23,6 +23,18 @@
                 <label for="nombre">Correo Electrónico</label>
                 <input type="text" th:field="*{correo}" class="form-control" id="correo" placeholder="ejemplo@direccion.com"/>
             </div>
+
+            <div>
+                <label for="nombre">Departamentos</label>
+            </div>
+
+
+            <div class="control-group">
+                <select id="departamentosDropdown">
+                </select>
+            </div>
+
+            <p><br/></p>
 
             <div>
                 <label for="nombre">Puestos</label>
