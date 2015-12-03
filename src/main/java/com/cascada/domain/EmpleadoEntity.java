@@ -24,7 +24,7 @@ public class EmpleadoEntity {
 
     @Basic
     @Column(name = "NOMBRES", nullable = false, length = 100)
-    private String nombre;
+    private String nombres;
 
     @Basic
     @Column(name = "APELLIDOS", nullable = true, length = 150)
@@ -46,6 +46,11 @@ public class EmpleadoEntity {
     @Column(name = "CREADO_EN", nullable = false)
     private Date creadoEn = new Date();
 
+    @ManyToOne
+    @JoinColumn(name = "PUESTO_ID", nullable = false,
+            foreignKey = @ForeignKey(name = "PUESTO_ID_FK"))
+    private PuestoEntity puestoEntity;
+
 
     public Long getEmpleadoId() {
         return empleadoId;
@@ -56,12 +61,12 @@ public class EmpleadoEntity {
     }
 
 
-    public String getNombre() {
-        return nombre;
+    public String getNombres() {
+        return nombres;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombres(String nombre) {
+        this.nombres = nombre;
     }
 
 
@@ -105,6 +110,15 @@ public class EmpleadoEntity {
         this.correo = correo;
     }
 
+
+    public PuestoEntity getPuestoEntity() {
+        return puestoEntity;
+    }
+
+    public void setPuestoEntity(PuestoEntity empleadoEntity) {
+        this.puestoEntity = empleadoEntity;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -113,7 +127,7 @@ public class EmpleadoEntity {
         EmpleadoEntity that = (EmpleadoEntity) o;
 
         if (empleadoId != that.empleadoId) return false;
-        if (nombre != null ? !nombre.equals(that.nombre) : that.nombre != null) return false;
+        if (nombres != null ? !nombres.equals(that.nombres) : that.nombres != null) return false;
         if (apellidos != null ? !apellidos.equals(that.apellidos) : that.apellidos != null) return false;
         if (estado != null ? !estado.equals(that.estado) : that.estado != null) return false;
 

@@ -1,8 +1,12 @@
 package com.cascada.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by jeanbernard on 11/26/15.
@@ -43,6 +47,9 @@ public class PuestoEntity {
     @JoinColumn(name = "DEPARTAMENTO_ID", nullable = false,
             foreignKey = @ForeignKey(name = "DEPARTAMENTO_ID_FK"))
     private DepartamentoEntity departamentoEntity;
+
+    @OneToMany(mappedBy = "puestoEntity", cascade = CascadeType.ALL)
+    private List<EmpleadoEntity> empleados = new ArrayList<EmpleadoEntity>();
 
     public Long getPuestoId() {
         return puestoId;
@@ -92,6 +99,15 @@ public class PuestoEntity {
 
     public void setDepartamentoEntity(DepartamentoEntity departamento) {
         this.departamentoEntity = departamento;
+    }
+
+    @JsonIgnore
+    public List<EmpleadoEntity> getEmpleados() {
+        return empleados;
+    }
+
+    public void setEmpleados(List<EmpleadoEntity> empleados) {
+        this.empleados = empleados;
     }
 
     @Override

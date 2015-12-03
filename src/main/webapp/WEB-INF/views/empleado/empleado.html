@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+
+<body>
+<div th:fragment="content">
+
+    <div class="container">
+        <form th:action="@{/empleado/crearEmpleado/}" method="get">
+            <div class="page-header">
+                <h1>Empleados</h1>
+            </div>
+            <!-- Create Button -->
+            <button type="submit" class="btn btn-primary">
+                <span class="glyphicon glyphicon-plus"></span>Crear
+            </button>
+            <p><br/></p>
+            <!-- Table -->
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Puesto</th>
+                        <th>Departamento</th>
+                        <th>Correo</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="empleado : ${empleados}">
+                        <td th:text="${empleado.nombres}"></td>
+                        <td th:text="${empleado.apellidos}"></td>
+                        <td th:text="${empleado.puestoEntity.nombre}"></td>
+                        <td th:text="${empleado.puestoEntity.departamentoEntity.nombre}"></td>
+                        <td th:text="${empleado.correo}"></td>
+                        <td th:text="${empleado.estado == 1 ? 'Activo' : 'Inactivo'}"></td>
+                        <th th:hidden="hidden" th:text="${empleado.empleadoId}"></th>
+                        <td>
+                            <a href="" th:href="@{/empleado/edit/{empleadoId}(empleadoId=${empleado.empleadoId})}">
+                            <span class="glyphicon glyphicon-edit">
+
+                            </span>
+                                Editar
+                            </a>
+                            <a href="">
+                            <span class="glyphicon glyphicon-trash">
+
+                            </span>
+                                Eliminar
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+</body>
+</html>
