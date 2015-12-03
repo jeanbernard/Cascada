@@ -1,10 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+
 </head>
 <body>
+<div th:fragment="content">
+    <div class="container">
+        <form method="post" th:object="${empleado}" th:action="@{/empleado/editarEmpleado}">
+            <div class="page-header">
+                <h1>Editar Empleado</h1>
+            </div>
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input class="form-control" th:field="*{nombres}" id="nombre" placeholder="Nombre"/>
+            </div>
+            <div class="form-group">
+                <label for="descripcion">Apellidos</label>
+                <input class="form-control" th:field="*{apellidos}" id="descripcion" placeholder="Introduzca una descripción"/>
+            </div>
+            <div class="form-group">
+                <label for="nombre">Correo Electrónico</label>
+                <input type="text" th:field="*{correo}" class="form-control" id="correo" placeholder="ejemplo@direccion.com"/>
+            </div>
 
+            <div>
+                <label for="nombre">Puestos</label>
+            </div>
+
+            <div class="control-group">
+                <select name="puestos" id="puestos" th:field="${empleado.puestoEntity.puestoId}">
+                    <option th:each="puesto : ${puestos}"
+                            th:value="${puesto.getPuestoId()}"
+                            th:text="${puesto.getNombre()}">
+                    </option>
+                </select>
+            </div>
+
+            <p><br/></p>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+
+            <a href="#" th:href="@{/empleado}">
+                <button type="button" value="cancel" class="btn btn-success">Cancelar
+                </button>
+            </a>
+
+            <input type="hidden" id="empleadoId" th:field="*{empleadoId}"
+                   th:value="*{empleadoId}"/>
+
+            <input type="hidden" id="empleadoEstado"
+                   th:field="*{estado}" th:value="*{estado}"/>
+
+        </form>
+    </div>
+
+
+</div>
 </body>
 </html>

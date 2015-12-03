@@ -56,10 +56,11 @@ public class EmpleadoController {
     @RequestMapping(value="empleado/edit/{empleadoId}", method=RequestMethod.GET)
     public String updateEmpleado(Model model, @PathVariable(value = "empleadoId") Long empleadoId) {
 
-        EmpleadoEntity dept = empleadoService.findEmpleado(empleadoId);
+        EmpleadoEntity empleado = empleadoService.findEmpleado(empleadoId);
 
         model.addAttribute("page", "empleado");
-        model.addAttribute("dept", dept);
+        model.addAttribute("empleado", empleado);
+        model.addAttribute("puestos", puestoService.findAllPuestos());
 
         return "/empleado/editarEmpleado";
     }
