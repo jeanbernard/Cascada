@@ -12,4 +12,6 @@ public interface PuestoRepository {
     List<PuestoEntity> findAllPuestos();
     PuestoEntity findPuesto(Long puestoId);
     PuestoEntity updatePuesto(PuestoEntity puesto);
+
+    List<PuestoEntity> findPuestoByDepartamento(Long departamentoId);
 }

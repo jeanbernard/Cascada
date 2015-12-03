@@ -3,6 +3,7 @@ package com.cascada.controller;
 import com.cascada.annotations.Layout;
 import com.cascada.domain.DepartamentoEntity;
 import com.cascada.domain.EmpleadoEntity;
+import com.cascada.domain.PuestoEntity;
 import com.cascada.service.DepartamentoService;
 import com.cascada.service.EmpleadoService;
 import com.cascada.service.PuestoService;
@@ -76,6 +77,11 @@ public class EmpleadoController {
     @RequestMapping(value="empleado/edit/json/departamentos", method = RequestMethod.GET)
     public @ResponseBody List<DepartamentoEntity> findAllDepartments() {
         return departamentoService.findAllDepartments();
+    }
+
+    @RequestMapping(value="empleado/edit/json/puestos/{departamentoId}", method = RequestMethod.GET)
+    public @ResponseBody List<PuestoEntity> filterPuestos(Long departamentoId) {
+        return puestoService.findAllPuestosByDepartmento(departamentoId);
     }
 
 

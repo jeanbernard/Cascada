@@ -45,4 +45,11 @@ public class PuestoRepositoryImpl implements PuestoRepository {
         entityManager.flush();
         return puesto;
     }
+
+    @Override
+    public List<PuestoEntity> findPuestoByDepartamento(Long departamentoId) {
+        TypedQuery query = entityManager.createNamedQuery(PuestoEntity.FIND_PUESTO_BY_DEPARTAMENTO, PuestoEntity.class);
+        query.setParameter("departamentoId", departamentoId);
+        return query.getResultList();
+    }
 }

@@ -15,12 +15,14 @@ import java.util.List;
 @Table(name = "PUESTO", schema = "Cascada", catalog = "")
 @NamedQueries({
         @NamedQuery(name=PuestoEntity.FIND_ALL_PUESTOS, query="Select distinct p from PuestoEntity p"),
-        @NamedQuery(name=PuestoEntity.FIND_PUESTO, query="Select p from PuestoEntity p where p.puestoId=:puestoId")
+        @NamedQuery(name=PuestoEntity.FIND_PUESTO, query="Select p from PuestoEntity p where p.puestoId=:puestoId"),
+        @NamedQuery(name=PuestoEntity.FIND_PUESTO_BY_DEPARTAMENTO, query="Select p from PuestoEntity p where p.departamentoEntity.departamentoId=:departamentoId")
 })
 public class PuestoEntity {
 
     public static final String FIND_ALL_PUESTOS = "findAllPuestos";
     public static final String FIND_PUESTO = "findPuesto";
+    public static final String FIND_PUESTO_BY_DEPARTAMENTO = "findPuestoByDepartamento";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

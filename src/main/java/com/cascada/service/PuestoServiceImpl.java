@@ -41,4 +41,9 @@ public class PuestoServiceImpl implements PuestoService {
     public PuestoEntity updatePuesto(PuestoEntity puesto) {
         return puestoRepository.updatePuesto(puesto);
     }
+
+    @Override
+    public List<PuestoEntity> findAllPuestosByDepartmento(Long departamentoId) {
+        return puestoRepository.findPuestoByDepartamento(departamentoId);
+    }
 }
