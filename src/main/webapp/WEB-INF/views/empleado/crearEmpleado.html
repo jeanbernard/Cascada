@@ -1,10 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+
 </head>
 <body>
+<div th:fragment="content">
+    <div class="container">
+        <form th:method="POST" th:object="${empleado}">
+            <div class="page-header">
+                <h1 class="crearEmpleado">Crear Empleado</h1>
+            </div>
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" th:field="*{nombres}" class="form-control" id="nombres" placeholder="Introduzca nombres"/>
+            </div>
+            <div class="form-group">
+                <label for="apellido">Apellidos</label>
+                <input type="text" th:field="*{apellidos}" class="form-control" id="apellidos" placeholder="Introduzca apellidos"></input>
+            </div>
+            <div class="form-group">
+                <label for="nombre">Correo Electrónico</label>
+                <input type="text" th:field="*{correo}" class="form-control" id="correo" placeholder="ejemplo@direccion.com"/>
+            </div>
+
+            <div>
+                <label for="puestos">Puestos</label>
+            </div>
+
+            <div class="control-group">
+                <select name="departments" id="puestos" th:field="${empleado.puestoEntity.puestoId}">
+                    <option th:each="puesto : ${puestos}"
+                            th:value="${puesto.getPuestoId()}"
+                            th:text="${puesto.getNombre()}">
+                    </option>
+                </select>
+            </div>
+
+            <p><br/></p>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="#" th:href="@{/empleado}">
+                <button type="button" value="cancel" class="btn btn-success">Cancelar
+                </button>
+            </a>
+        </form>
+    </div>
+
+</div>
 
 </body>
 </html>

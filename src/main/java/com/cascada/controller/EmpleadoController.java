@@ -3,6 +3,7 @@ package com.cascada.controller;
 import com.cascada.annotations.Layout;
 import com.cascada.domain.EmpleadoEntity;
 import com.cascada.service.EmpleadoService;
+import com.cascada.service.PuestoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,9 +25,12 @@ public class EmpleadoController {
     @Autowired
     private EmpleadoService empleadoService;
 
+    @Autowired
+    private PuestoService puestoService;
+
 
     @RequestMapping(value = "/empleado", method = RequestMethod.GET)
-    public String home(Model model) {
+    public String consultarEmpleado(Model model) {
 
         List<EmpleadoEntity> empleados = empleadoService.findAllEmpleados();
 
@@ -36,15 +40,16 @@ public class EmpleadoController {
     }
 
     @RequestMapping(value = "/empleado/crearEmpleado", method = RequestMethod.GET)
-    public String crearDepartment(Model model) {
+    public String crearEmpleado(Model model) {
         model.addAttribute("page", "empleado");
-        model.addAttribute("departmento", new EmpleadoEntity());
+        model.addAttribute("empleado", new EmpleadoEntity());
+        model.addAttribute("puestos", puestoService.findAllPuestos());
         return "empleado/crearEmpleado";
     }
 
     @RequestMapping(value="empleado/crearEmpleado", method=RequestMethod.POST)
-    public String guardarDepartment(EmpleadoEntity EmpleadoEntity) {
-        empleadoService.saveEmpleado(EmpleadoEntity);
+    public String guardarEmpleado(EmpleadoEntity empleadoEntity) {
+        empleadoService.saveEmpleado(empleadoEntity);
         return "redirect:/empleado/";
     }
 
