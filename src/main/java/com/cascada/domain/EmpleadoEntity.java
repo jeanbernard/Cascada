@@ -1,7 +1,9 @@
 package com.cascada.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by jeanbernard on 11/26/15.
@@ -50,6 +52,9 @@ public class EmpleadoEntity {
     @JoinColumn(name = "PUESTO_ID", nullable = false,
             foreignKey = @ForeignKey(name = "PUESTO_ID_FK"))
     private PuestoEntity puestoEntity;
+
+    @OneToMany(mappedBy = "empleadoId", cascade = CascadeType.ALL)
+    private List<EmpleadoIngresoEntity> empleados = new ArrayList<EmpleadoIngresoEntity>();
 
 
     public Long getEmpleadoId() {
@@ -117,6 +122,14 @@ public class EmpleadoEntity {
 
     public void setPuestoEntity(PuestoEntity empleadoEntity) {
         this.puestoEntity = empleadoEntity;
+    }
+
+    public List<EmpleadoIngresoEntity> getEmpleados() {
+        return empleados;
+    }
+
+    public void setEmpleados(List<EmpleadoIngresoEntity> empleados) {
+        this.empleados = empleados;
     }
 
     @Override

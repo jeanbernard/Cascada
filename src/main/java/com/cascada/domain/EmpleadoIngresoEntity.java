@@ -1,6 +1,7 @@
 package com.cascada.domain;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 /**
  * Created by jeanbernard on 11/26/15.
@@ -8,11 +9,28 @@ import javax.persistence.*;
 @Entity
 @Table(name = "EMPLEADO_INGRESO", schema = "Cascada", catalog = "")
 public class EmpleadoIngresoEntity {
-    private int empleadoIngresoId;
-    private int monto;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EMPLEADO_INGRESO_ID", nullable = false)
+    private int empleadoIngresoId;
+
+    @Basic
+    @Column(name = "MONTO", nullable = false, precision = 0)
+    private BigDecimal monto;
+
+    @ManyToOne
+    @JoinColumn(name="EMPLEADO_ID", nullable = false,
+            foreignKey = @ForeignKey(name = "EMPLEADO_ID_FK"))
+    private EmpleadoEntity empleadoId;
+
+
+    @ManyToOne
+    @JoinColumn(name = "INGRESO_ID", nullable = false,
+            foreignKey = @ForeignKey(name = "INGRESO_ID_FK"))
+    private IngresoEntity ingresoId;
+
+
     public int getEmpleadoIngresoId() {
         return empleadoIngresoId;
     }
@@ -21,14 +39,29 @@ public class EmpleadoIngresoEntity {
         this.empleadoIngresoId = empleadoIngresoId;
     }
 
-    @Basic
-    @Column(name = "MONTO", nullable = false, precision = 0)
-    public int getMonto() {
+
+    public BigDecimal getMonto() {
         return monto;
     }
 
-    public void setMonto(int monto) {
+    public void setMonto(BigDecimal monto) {
         this.monto = monto;
+    }
+
+    public EmpleadoEntity getEmpleadoId() {
+        return empleadoId;
+    }
+
+    public void setEmpleadoId(EmpleadoEntity empleadoId) {
+        this.empleadoId = empleadoId;
+    }
+
+    public IngresoEntity getIngresoId() {
+        return ingresoId;
+    }
+
+    public void setIngresoId(IngresoEntity ingresoId) {
+        this.ingresoId = ingresoId;
     }
 
     @Override
@@ -44,10 +77,4 @@ public class EmpleadoIngresoEntity {
         return true;
     }
 
-    @Override
-    public int hashCode() {
-        int result = empleadoIngresoId;
-        result = 31 * result + monto;
-        return result;
-    }
 }

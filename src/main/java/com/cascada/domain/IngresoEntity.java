@@ -1,7 +1,9 @@
 package com.cascada.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by jeanbernard on 11/26/15.
@@ -37,6 +39,9 @@ public class IngresoEntity {
     @Basic
     @Column(name = "CREADO_EN", nullable = false)
     private Date creadoEn = new Date();
+
+    @OneToMany(mappedBy = "ingresoId", cascade = CascadeType.ALL)
+    private List<EmpleadoIngresoEntity> ingresos = new ArrayList<EmpleadoIngresoEntity>();
 
 
     public Long getIngresoId() {
@@ -79,6 +84,14 @@ public class IngresoEntity {
 
     public void setCreadoEn(Date creadoEn) {
         this.creadoEn = creadoEn;
+    }
+
+    public List<EmpleadoIngresoEntity> getIngresos() {
+        return ingresos;
+    }
+
+    public void setIngresos(List<EmpleadoIngresoEntity> ingresos) {
+        this.ingresos = ingresos;
     }
 
     @Override
