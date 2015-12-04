@@ -1,11 +1,13 @@
 package com.cascada.service;
 
+import com.cascada.domain.EmpleadoEntity;
 import com.cascada.domain.EmpleadoIngresoEntity;
 import com.cascada.repository.EmpleadoIngresoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -21,8 +23,11 @@ public class EmpleadoIngresoServiceImpl implements EmpleadoIngresoService {
 
 
     @Override
-    public EmpleadoIngresoEntity saveEmpleadoIngreso(EmpleadoIngresoEntity empleadoIngreso) {
-        //empleadoIngreso.setEstado(1L);
+    public EmpleadoIngresoEntity saveEmpleadoIngreso(EmpleadoIngresoEntity empleadoIngreso, Long empleadoId) {
+        empleadoIngreso.setMonto(new BigDecimal(1000));
+        EmpleadoEntity empleadoCreado = new EmpleadoEntity();
+        empleadoCreado.setEmpleadoId(empleadoId);
+        empleadoIngreso.setEmpleadoId(empleadoCreado);
         return empleadoIngresoRepository.saveEmpleadoIngreso(empleadoIngreso);
     }
 

@@ -13,15 +13,15 @@
             </div>
             <div class="form-group">
                 <label for="nombre">Nombre</label>
-                <input type="text" th:value="${empleado.nombres}" class="form-control" id="nombres" placeholder="Introduzca nombres"/>
+                <input type="text" th:field="${empleado.nombres}" class="form-control" id="nombres" placeholder="Introduzca nombres"/>
             </div>
             <div class="form-group">
                 <label for="apellido">Apellidos</label>
-                <input type="text" th:field="*{apellidos}" class="form-control" id="apellidos" placeholder="Introduzca apellidos"/>
+                <input type="text" th:field="*{empleado.apellidos}" class="form-control" id="apellidos" placeholder="Introduzca apellidos"/>
             </div>
             <div class="form-group">
                 <label for="nombre">Correo Electrónico</label>
-                <input type="text" th:field="*{correo}" class="form-control" id="correo" placeholder="ejemplo@direccion.com"/>
+                <input type="text" th:field="*{empleado.correo}" class="form-control" id="correo" placeholder="ejemplo@direccion.com"/>
             </div>
 
             <div>
@@ -43,6 +43,22 @@
 
             <div class="control-group">
                 <select name="puestos" id="puestosDropdown" th:field="${empleado.puestoEntity.puestoId}">
+                </select>
+            </div>
+
+            <p><br/></p>
+
+            <div>
+                <label for="nombre">Ingresos</label>
+            </div>
+
+            <div class="control-group">
+                <select name="ingresos" id="ingresosDropdown" th:field="${empleadoIngreso.ingresoId.ingresoId}">
+                    <option
+                            th:each="ingreso : ${ingresos}"
+                            th:value="${ingreso.ingresoId}"
+                            th:text="${ingreso.descripcion}">
+                    </option>
                 </select>
             </div>
 

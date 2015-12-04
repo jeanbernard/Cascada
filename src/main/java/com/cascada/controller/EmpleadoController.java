@@ -3,10 +3,9 @@ package com.cascada.controller;
 import com.cascada.annotations.Layout;
 import com.cascada.domain.DepartamentoEntity;
 import com.cascada.domain.EmpleadoEntity;
+import com.cascada.domain.EmpleadoIngresoEntity;
 import com.cascada.domain.PuestoEntity;
-import com.cascada.service.DepartamentoService;
-import com.cascada.service.EmpleadoService;
-import com.cascada.service.PuestoService;
+import com.cascada.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +30,13 @@ public class EmpleadoController {
     @Autowired
     private DepartamentoService departamentoService;
 
+    @Autowired
+    private IngresoService ingresoService;
+
+    @Autowired
+    private EmpleadoIngresoService empleadoIngresoService;
+
+
 
     @RequestMapping(value = "/empleado", method = RequestMethod.GET)
     public String consultarEmpleado(Model model) {
@@ -46,13 +52,18 @@ public class EmpleadoController {
     public String crearEmpleado(Model model) {
         model.addAttribute("page", "empleado");
         model.addAttribute("empleado", new EmpleadoEntity());
+        model.addAttribute("empleadoIngreso", new EmpleadoIngresoEntity());
         model.addAttribute("puestos", puestoService.findAllPuestos());
+        model.addAttribute("ingresos",ingresoService.findAllIngresos());
         return "empleado/crearEmpleado";
     }
 
     @RequestMapping(value="empleado/crearEmpleado", method=RequestMethod.POST)
-    public String guardarEmpleado(EmpleadoEntity empleadoEntity) {
-        empleadoService.saveEmpleado(empleadoEntity);
+    public String guardarEmpleado(EmpleadoEntity empleadoEntity, EmpleadoIngresoEntity empleadoIngresoEntity, Model model) {
+        EmpleadoEntity empleadoCreado = empleadoService.saveEmpleado(empleadoEntity);
+        EmpleadoEntity empleado = empleadoService.findEmpleado(empleadoCreado.getEmpleadoId());
+        model.addAttribute("test", empleado.getEmpleadoId());
+        empleadoIngresoService.saveEmpleadoIngreso(empleadoIngresoEntity, empleado.getEmpleadoId());
         return "redirect:/empleado/";
     }
 

@@ -5,7 +5,7 @@ import com.cascada.domain.EmpleadoIngresoEntity;
 import java.util.List;
 
 public interface EmpleadoIngresoService {
-    EmpleadoIngresoEntity saveEmpleadoIngreso(EmpleadoIngresoEntity empleadoIngreso);
+    EmpleadoIngresoEntity saveEmpleadoIngreso(EmpleadoIngresoEntity empleadoIngreso, Long empleadoId);
 
     List<EmpleadoIngresoEntity> findAllEmpleadoIngresos();
 
