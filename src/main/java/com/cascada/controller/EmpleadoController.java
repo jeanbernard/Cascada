@@ -56,6 +56,16 @@ public class EmpleadoController {
         return "redirect:/empleado/";
     }
 
+    @RequestMapping(value="empleado/crearEmpleado/json/departamentos", method = RequestMethod.GET)
+    public @ResponseBody List<DepartamentoEntity> findAllDepartmentsCrear() {
+        return departamentoService.findAllDepartments();
+    }
+
+    @RequestMapping(value="empleado/crearEmpleado/json/puestos", method = RequestMethod.GET)
+    public @ResponseBody List<PuestoEntity> filterPuestosCrear(@RequestParam Long departamentoId) {
+        return puestoService.findAllPuestosByDepartmento(departamentoId);
+    }
+
     @RequestMapping(value="empleado/edit/{empleadoId}", method=RequestMethod.GET)
     public String updateEmpleado(Model model, @PathVariable(value = "empleadoId") Long empleadoId) {
 

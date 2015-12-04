@@ -25,16 +25,24 @@
             </div>
 
             <div>
-                <label for="puestos">Puestos</label>
+                <label for="nombre">Departamentos</label>
+            </div>
+
+
+            <div class="control-group">
+                <select id="departamentosDropdown">
+                    <option value="0">Seleccione</option>
+                </select>
+            </div>
+
+            <p><br/></p>
+
+            <div>
+                <label for="nombre">Puestos</label>
             </div>
 
             <div class="control-group">
-                <select name="departments" id="puestos" th:field="${empleado.puestoEntity.puestoId}">
-                    <option value="0">Seleccione</option>
-                    <option th:each="puesto : ${puestos}"
-                            th:value="${puesto.getPuestoId()}"
-                            th:text="${puesto.getNombre()}">
-                    </option>
+                <select name="puestos" id="puestosDropdown" th:field="${empleado.puestoEntity.puestoId}">
                 </select>
             </div>
 
