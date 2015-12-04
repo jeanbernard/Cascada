@@ -8,7 +8,14 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name = "EMPLEADO_INGRESO", schema = "Cascada", catalog = "")
+@NamedQueries({
+        @NamedQuery(name=EmpleadoIngresoEntity.FIND_ALL_EMPLEADOS_INGRESOS, query="Select distinct p from EmpleadoIngresoEntity p"),
+        @NamedQuery(name=EmpleadoIngresoEntity.FIND_EMPLEADO_INGRESO, query="Select p from EmpleadoIngresoEntity p where p.empleadoId=:empleadoId")
+})
 public class EmpleadoIngresoEntity {
+
+    public static final String FIND_ALL_EMPLEADOS_INGRESOS = "findAllEmpleadosIngresos";
+    public static final String FIND_EMPLEADO_INGRESO = "findEmpleadoIngresos";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
