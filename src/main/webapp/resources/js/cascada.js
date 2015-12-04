@@ -35,12 +35,14 @@ function fillDropdownDept() {
 function fillDropdownPuestos() {
 
     $("#puestosDropdown").empty();
-    var puestoURL = "json/puestos/" + $("#departamentosDropdown").val();
+    var puestoURL = "json/puestos/";
 
     $.ajax({
         type: "GET",
         url: puestoURL,
         dataType: 'json',
+        contentType: "application/json",
+        data : {departamentoId : $("#departamentosDropdown").val()},
         success: function (data) {
             for (var i = 0; i < data.length; i++) {
                 $("#puestosDropdown").append('<option value="' + data[i].puestoId + '">'

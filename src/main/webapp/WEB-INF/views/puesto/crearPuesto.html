@@ -26,7 +26,9 @@
 
             <div class="control-group">
                <select name="departments" id="departments" th:field="${puesto.departamentoEntity.departamentoId}">
-                   <option th:each="dept : ${departamentos}"
+                   <option value="0">Seleccione</option>
+                   <option
+                           th:each="dept : ${departamentos}"
                            th:value="${dept.getDepartamentoId()}"
                            th:text="${dept.getNombre()}">
                    </option>

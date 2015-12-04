@@ -79,8 +79,8 @@ public class EmpleadoController {
         return departamentoService.findAllDepartments();
     }
 
-    @RequestMapping(value="empleado/edit/json/puestos/{departamentoId}", method = RequestMethod.GET)
-    public @ResponseBody List<PuestoEntity> filterPuestos(Long departamentoId) {
+    @RequestMapping(value="empleado/edit/json/puestos", method = RequestMethod.GET)
+    public @ResponseBody List<PuestoEntity> filterPuestos(@RequestParam Long departamentoId) {
         return puestoService.findAllPuestosByDepartmento(departamentoId);
     }
 

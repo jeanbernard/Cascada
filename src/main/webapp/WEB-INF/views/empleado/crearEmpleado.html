@@ -30,6 +30,7 @@
 
             <div class="control-group">
                 <select name="departments" id="puestos" th:field="${empleado.puestoEntity.puestoId}">
+                    <option value="0">Seleccione</option>
                     <option th:each="puesto : ${puestos}"
                             th:value="${puesto.getPuestoId()}"
                             th:text="${puesto.getNombre()}">
