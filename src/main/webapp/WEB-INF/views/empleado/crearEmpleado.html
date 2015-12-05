@@ -64,11 +64,22 @@
 
             <p><br/></p>
 
-            <button type="submit" class="btn btn-primary">Guardar</button>
-            <a href="#" th:href="@{/empleado}">
-                <button type="button" value="cancel" class="btn btn-success">Cancelar
-                </button>
-            </a>
+            <label for="nombre">Ingresos</label>
+            <div class="control-group">
+                <input class="col-xs-3" type="text" id="autocomplete"/>
+            </div>
+
+            <p><br/></p>
+            <p><br/></p>
+
+            <div class="control-group">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="#" th:href="@{/empleado}">
+                    <button type="button" value="cancel" class="btn btn-success">Cancelar
+                    </button>
+                </a>
+            </div>
+
         </form>
     </div>
 

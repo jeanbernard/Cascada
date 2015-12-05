@@ -5,6 +5,7 @@
 $(document).ready(function() {
     if($('h1').is('.editarEmpleado') || $('h1').is('.crearEmpleado')) {
         fillDropdownDept();
+        autoCompleteField();
     }
 
     if($("#departamentosDropdown").change(function() {
@@ -51,4 +52,32 @@ function fillDropdownPuestos() {
             }
         }
     });
+
+
+}
+
+function autoCompleteField() {
+
+    $("#autocomplete").autocomplete({
+        minLength: 0,
+        source : function (request, response) {
+            $.ajax({
+                url: "json/departamentos",
+                dataType: 'json',
+                contentType:"application/json",
+                success: function(data) {
+                    response($.map(data, function(item){
+                        return {
+                            label : item.nombre
+                        }
+                    }))
+                }
+            })
+        },
+        messages: {
+            noResults: '',
+            results: function() {}
+        }
+    });
+
 }
