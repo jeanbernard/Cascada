@@ -4,6 +4,8 @@
 <head></head>
 
 <body>
+
+
 <div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
     <div class="container">
         <div class="navbar-header">
@@ -26,7 +28,9 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="/logout" th:href="@{/logout}">Logout</a>
+                    <form th:method="POST" th:action="@{/logout}">
+                        <button type="submit" class="btn btn-link">Logout</button>
+                    </form>
                 </li>
             </ul>
         </div>

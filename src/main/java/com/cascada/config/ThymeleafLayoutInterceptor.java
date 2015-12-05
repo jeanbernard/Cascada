@@ -1,6 +1,7 @@
 package com.cascada.config;
 
 import com.cascada.annotations.Layout;
+import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by Jbernard on 11/19/2015.
  */
+@Component
 public class ThymeleafLayoutInterceptor extends HandlerInterceptorAdapter {
 
     private static final String DEFAULT_LAYOUT = "layouts/default";

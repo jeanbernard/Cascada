@@ -26,24 +26,28 @@
                     <div class="page-header">
                         <h3 align="center">Cascada</h3>
                     </div>
-                    <form th:action="@{/home}" role="form-signin" method="get">
+                    <form  role="form-signin"  th:method="POST" th:object="${usuario}">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Usuario</label>
+                            <label for="inputEmail1">* Usuario</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Introduzca usuario"/>
+                                <input type="email" th:field="*{nombreUsuario}" class="form-control" id="inputEmail1" placeholder="Introduzca usuario"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Clave</label>
+                            <label for="inputPassword1">* Clave</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-star"></span></span>
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Introduzca clave"/>
+                                <input type="password" th:field="*{clave}" class="form-control" id="inputPassword1" placeholder="Introduzca clave"/>
                             </div>
                         </div>
                         <hr/>
                         <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-lock"></span> Acceder</button>
                         <p><br/></p>
+
+                        <ul th:if="${!errors.isEmpty()}">
+                            <li class="alert alert-danger" role="alert" th:each="error : ${errors}" th:text="${error}" style="list-style:none;padding-left:0;" ></li>
+                        </ul>
                     </form>
                 </div>
             </div>
