@@ -62,7 +62,7 @@ public class EmpleadoController {
     public String guardarEmpleado(EmpleadoEntity empleadoEntity, EmpleadoIngresoEntity empleadoIngresoEntity, Model model) {
         EmpleadoEntity empleadoCreado = empleadoService.saveEmpleado(empleadoEntity);
         EmpleadoEntity empleado = empleadoService.findEmpleado(empleadoCreado.getEmpleadoId());
-        model.addAttribute("test", empleado.getEmpleadoId());
+        //model.addAttribute("test", empleado.getEmpleadoId());
         empleadoIngresoService.saveEmpleadoIngreso(empleadoIngresoEntity, empleado.getEmpleadoId());
         return "redirect:/empleado/";
     }
