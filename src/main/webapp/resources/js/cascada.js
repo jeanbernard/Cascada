@@ -62,7 +62,7 @@ function autoCompleteField() {
         minLength: 0,
         source : function (request, response) {
             $.ajax({
-                url: "json/departamentos",
+                url: "json/ingresos",
                 dataType: 'json',
                 contentType:"application/json",
                 success: function(data) {

@@ -1,16 +1,14 @@
 package com.cascada.controller;
 
 import com.cascada.annotations.Layout;
-import com.cascada.domain.DepartamentoEntity;
-import com.cascada.domain.EmpleadoEntity;
-import com.cascada.domain.EmpleadoIngresoEntity;
-import com.cascada.domain.PuestoEntity;
+import com.cascada.domain.*;
 import com.cascada.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,6 +65,8 @@ public class EmpleadoController {
         return "redirect:/empleado/";
     }
 
+    /* JSON EN CREAR  */
+
     @RequestMapping(value="empleado/crearEmpleado/json/departamentos", method = RequestMethod.GET)
     public @ResponseBody List<DepartamentoEntity> findAllDepartmentsCrear() {
         return departamentoService.findAllDepartments();
@@ -75,6 +75,12 @@ public class EmpleadoController {
     @RequestMapping(value="empleado/crearEmpleado/json/puestos", method = RequestMethod.GET)
     public @ResponseBody List<PuestoEntity> filterPuestosCrear(@RequestParam Long departamentoId) {
         return puestoService.findAllPuestosByDepartmento(departamentoId);
+    }
+
+    @RequestMapping(value="empleado/crearEmpleado/json/ingresos", method = RequestMethod.GET)
+    public @ResponseBody List<IngresoEntity> filterIngresos() {
+        List<IngresoEntity> ingresos =  ingresoService.findAllIngresos();
+        return ingresos;
     }
 
     @RequestMapping(value="empleado/edit/{empleadoId}", method=RequestMethod.GET)
@@ -104,6 +110,5 @@ public class EmpleadoController {
     public @ResponseBody List<PuestoEntity> filterPuestos(@RequestParam Long departamentoId) {
         return puestoService.findAllPuestosByDepartmento(departamentoId);
     }
-
 
 }

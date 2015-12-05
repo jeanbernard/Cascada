@@ -1,5 +1,8 @@
 package com.cascada.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,6 +44,7 @@ public class IngresoEntity {
     private Date creadoEn = new Date();
 
     @OneToMany(mappedBy = "ingresoId", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<EmpleadoIngresoEntity> ingresos = new ArrayList<EmpleadoIngresoEntity>();
 
 
