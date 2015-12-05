@@ -113,3 +113,4 @@ function addIngreso(ingresosData) {
         nombre : ingresosData.name
     });
 }
+
