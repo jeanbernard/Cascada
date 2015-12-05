@@ -58,6 +58,8 @@ function fillDropdownPuestos() {
 
 function autoCompleteField() {
 
+    var test;
+
     $("#autocomplete").autocomplete({
         minLength: 0,
         source : function (request, response) {
@@ -67,6 +69,7 @@ function autoCompleteField() {
                 contentType:"application/json",
                 success: function(data) {
                     response($.map(data, function(item){
+                        test = item.nombre;
                         return {
                             label : item.nombre
                         }
@@ -77,6 +80,14 @@ function autoCompleteField() {
         messages: {
             noResults: '',
             results: function() {}
+        },
+        select: function(event, ui) {
+            $("#testme").val(ui.item.label);
+            return false;
+        },
+        focus: function(event, ui) {
+            $("#testme").val(ui.item.label);
+            return false;
         }
     });
 
