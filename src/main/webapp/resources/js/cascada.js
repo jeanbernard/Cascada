@@ -58,8 +58,6 @@ function fillDropdownPuestos() {
 
 function autoCompleteField() {
 
-    var test;
-
     $("#ingresos-criteria").autocomplete({
         minLength: 0,
         source : function (request, response) {
@@ -69,9 +67,10 @@ function autoCompleteField() {
                 contentType:"application/json",
                 success: function(ingresosData) {
                     response($.map(ingresosData, function(item){
-                        test = item.nombre;
                         return {
-                            label : item.nombre
+                            label : item.nombre,
+                            code : item.ingresoId,
+                            name : item.nombre
                         }
                     }))
                 }
@@ -93,14 +92,24 @@ function autoCompleteField() {
 
 }
 
+var adddedIngresos = new Array();
+
 function addIngreso(ingresosData) {
     var tdValue = $("<td></td>");
     $(tdValue).append(ingresosData.label);
 
+    var tdAction = $("<td></td>");
+    //$(tdAction).append("<button type='button' onclick='removeDiagnosis(this);' class='btn btn-danger btn-rounded btn-condensed btn-sm'><span class='fa fa-times'></span></button>");
+
     var tr = $("<tr></tr>");
     $(tr).attr("id", ingresosData.code);
     $(tr).append(tdValue);
+    //$(tr).append(tdAction);
 
     $("#ingresos-list").append(tr);
 
+    adddedIngresos.push({
+        codigo : ingresosData.code,
+        nombre : ingresosData.name
+    });
 }
