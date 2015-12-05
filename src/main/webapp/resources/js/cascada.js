@@ -60,15 +60,15 @@ function autoCompleteField() {
 
     var test;
 
-    $("#autocomplete").autocomplete({
+    $("#ingresos-criteria").autocomplete({
         minLength: 0,
         source : function (request, response) {
             $.ajax({
                 url: "json/ingresos",
                 dataType: 'json',
                 contentType:"application/json",
-                success: function(data) {
-                    response($.map(data, function(item){
+                success: function(ingresosData) {
+                    response($.map(ingresosData, function(item){
                         test = item.nombre;
                         return {
                             label : item.nombre
@@ -82,13 +82,25 @@ function autoCompleteField() {
             results: function() {}
         },
         select: function(event, ui) {
-            $("#testme").val(ui.item.label);
+            $("#ingresos-criteria").val(ui.item.label);
+            addIngreso(ui.item);
             return false;
         },
-        focus: function(event, ui) {
-            $("#testme").val(ui.item.label);
-            return false;
+        close: function() {
+            $("#ingresos-criteria").val("");
         }
     });
+
+}
+
+function addIngreso(ingresosData) {
+    var tdValue = $("<td></td>");
+    $(tdValue).append(ingresosData.label);
+
+    var tr = $("<tr></tr>");
+    $(tr).attr("id", ingresosData.code);
+    $(tr).append(tdValue);
+
+    $("#ingresos-list").append(tr);
 
 }
