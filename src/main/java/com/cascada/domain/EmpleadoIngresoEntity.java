@@ -32,7 +32,7 @@ public class EmpleadoIngresoEntity {
     private EmpleadoEntity empleadoId;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "INGRESO_ID", nullable = false,
             foreignKey = @ForeignKey(name = "INGRESO_ID_FK"))
     private IngresoEntity ingresoId;

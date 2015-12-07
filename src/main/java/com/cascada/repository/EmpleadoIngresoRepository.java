@@ -2,6 +2,7 @@ package com.cascada.repository;
 
 import com.cascada.domain.EmpleadoEntity;
 import com.cascada.domain.EmpleadoIngresoEntity;
+import com.cascada.domain.IngresoEntity;
 
 import java.util.List;
 

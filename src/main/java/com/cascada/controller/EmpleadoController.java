@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,17 +52,17 @@ public class EmpleadoController {
         model.addAttribute("page", "empleado");
         model.addAttribute("empleado", new EmpleadoEntity());
         model.addAttribute("empleadoIngreso", new EmpleadoIngresoEntity());
+        model.addAttribute("test", new IngresoEntity());
         model.addAttribute("puestos", puestoService.findAllPuestos());
         model.addAttribute("ingresos",ingresoService.findAllIngresos());
         return "empleado/crearEmpleado";
     }
 
-    @RequestMapping(value="empleado/crearEmpleado", method=RequestMethod.POST)
-    public String guardarEmpleado(EmpleadoEntity empleadoEntity, EmpleadoIngresoEntity empleadoIngresoEntity, Model model) {
+    @RequestMapping(value="/empleado/crearEmpleado", method=RequestMethod.POST)
+    public String guardarEmpleado(EmpleadoEntity empleadoEntity, EmpleadoIngresoEntity empleadoIngresoEntity, IngresoEntity ingresoEntity) {
         EmpleadoEntity empleadoCreado = empleadoService.saveEmpleado(empleadoEntity);
         EmpleadoEntity empleado = empleadoService.findEmpleado(empleadoCreado.getEmpleadoId());
-        //model.addAttribute("test", empleado.getEmpleadoId());
-        empleadoIngresoService.saveEmpleadoIngreso(empleadoIngresoEntity, empleado.getEmpleadoId());
+        empleadoIngresoService.saveEmpleadoIngreso(empleadoIngresoEntity, empleado.getEmpleadoId(), ingresoEntity);
         return "redirect:/empleado/";
     }
 
