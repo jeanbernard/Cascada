@@ -3,7 +3,16 @@
  */
 
 $(document).ready(function() {
-    if($('h1').is('.editarEmpleado') || $('h1').is('.crearEmpleado')) {
+
+    if($('h1').is('.editarEmpleado')) {
+        fillDropdownDept(function(){
+            $("#departamentosDropdown").val($("#deptEmpleado").val());
+            fillDropdownPuestos();
+        });
+        autoCompleteField();
+    }
+
+    if($('h1').is('.crearEmpleado')) {
         fillDropdownDept();
         autoCompleteField();
     }
@@ -25,11 +34,11 @@ $(document).ready(function() {
 
 
 
-function fillDropdownDept() {
+function fillDropdownDept(callbackFunction) {
 
     var departamentoURL = "json/departamentos";
 
-    $.ajax({
+    return $.ajax({
         type: "GET",
         url: departamentoURL,
         dataType: 'json',
@@ -38,6 +47,9 @@ function fillDropdownDept() {
                 $("#departamentosDropdown").append('<option value="' + data[i].departamentoId + '">'
                     + data[i].nombre);
 
+            }
+            if (callbackFunction) {
+                callbackFunction();
             }
         }
     });

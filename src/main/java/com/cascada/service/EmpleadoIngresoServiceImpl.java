@@ -24,13 +24,17 @@ public class EmpleadoIngresoServiceImpl implements EmpleadoIngresoService {
 
 
     @Override
-    public EmpleadoIngresoEntity saveEmpleadoIngreso(EmpleadoIngresoEntity empleadoIngreso, Long empleadoId, IngresoEntity ingresoEntity) {
+    public EmpleadoIngresoEntity saveEmpleadoIngreso(EmpleadoIngresoEntity empleadoIngreso, Long empleadoId) {
         //empleadoIngreso.setMonto(new BigDecimal(1000));
+
+        IngresoEntity ingresoEntity = new IngresoEntity();
         ingresoEntity.setEstado(1L);
-        empleadoIngreso.setIngresoId(ingresoEntity);
+
+
         EmpleadoEntity empleadoCreado = new EmpleadoEntity();
         empleadoCreado.setEmpleadoId(empleadoId);
         empleadoIngreso.setEmpleadoId(empleadoCreado);
+        empleadoIngreso.setIngresoId(ingresoEntity);
         return empleadoIngresoRepository.saveEmpleadoIngreso(empleadoIngreso);
     }
 

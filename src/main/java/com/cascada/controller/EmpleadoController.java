@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,8 +51,21 @@ public class EmpleadoController {
     @RequestMapping(value = "/empleado/crearEmpleado", method = RequestMethod.GET)
     public String crearEmpleado(Model model) {
         model.addAttribute("page", "empleado");
-        model.addAttribute("empleado", new EmpleadoEntity());
-        model.addAttribute("empleadoIngreso", new EmpleadoIngresoEntity());
+
+        ArrayList<EmpleadoIngresoEntity> ingreso = new ArrayList<EmpleadoIngresoEntity>();
+        EmpleadoEntity empleado = new EmpleadoEntity();
+        empleado.setEmpleadoIngreso(ingreso);
+
+        List<IngresoEntity> ingresos = ingresoService.findAllIngresos();
+
+        for (IngresoEntity ingresoCreado : ingresos) {
+            EmpleadoIngresoEntity empleadoIngreso = new EmpleadoIngresoEntity();
+            empleadoIngreso.setIngresoId(ingresoCreado);
+            empleadoIngreso.setEmpleadoId(empleado);
+            empleado.getEmpleadoIngreso().add(empleadoIngreso);
+        }
+
+        model.addAttribute("empleado", empleado);
         model.addAttribute("test", new IngresoEntity());
         model.addAttribute("puestos", puestoService.findAllPuestos());
         model.addAttribute("ingresos",ingresoService.findAllIngresos());
@@ -59,10 +73,14 @@ public class EmpleadoController {
     }
 
     @RequestMapping(value="/empleado/crearEmpleado", method=RequestMethod.POST)
-    public String guardarEmpleado(EmpleadoEntity empleadoEntity, EmpleadoIngresoEntity empleadoIngresoEntity, IngresoEntity ingresoEntity) {
+    public String guardarEmpleado(EmpleadoEntity empleadoEntity, EmpleadoIngresoEntity empleadoIngresoEntity) {
+
+        for(EmpleadoIngresoEntity empleadoIngreso : empleadoEntity.getEmpleadoIngreso()) {
+            empleadoIngreso.setEmpleadoId(empleadoEntity);
+        }
+
         EmpleadoEntity empleadoCreado = empleadoService.saveEmpleado(empleadoEntity);
-        EmpleadoEntity empleado = empleadoService.findEmpleado(empleadoCreado.getEmpleadoId());
-        empleadoIngresoService.saveEmpleadoIngreso(empleadoIngresoEntity, empleado.getEmpleadoId(), ingresoEntity);
+
         return "redirect:/empleado/";
     }
 
@@ -89,6 +107,31 @@ public class EmpleadoController {
 
         EmpleadoEntity empleado = empleadoService.findEmpleado(empleadoId);
 
+        List<IngresoEntity> ingresos = ingresoService.findAllIngresos();
+
+        for(IngresoEntity ingreso : ingresos) {
+
+            boolean yaTieneIngreso = false;
+
+            for(EmpleadoIngresoEntity empleadoIngreso : empleado.getEmpleadoIngreso()) {
+
+                if(ingreso.getIngresoId().equals(empleadoIngreso.getIngresoId().getIngresoId())) {
+                    yaTieneIngreso = true;
+                }
+
+            }
+
+            if (yaTieneIngreso) {
+                continue;
+            }
+
+            EmpleadoIngresoEntity empleadoIngresoEntity = new EmpleadoIngresoEntity();
+            empleadoIngresoEntity.setEmpleadoId(empleado);
+            empleadoIngresoEntity.setIngresoId(ingreso);
+            empleado.getEmpleadoIngreso().add(empleadoIngresoEntity);
+
+        }
+
         model.addAttribute("page", "empleado");
         model.addAttribute("empleado", empleado);
         model.addAttribute("puestos", puestoService.findAllPuestos());
@@ -97,8 +140,13 @@ public class EmpleadoController {
     }
 
     @RequestMapping(value="empleado/editarEmpleado", method=RequestMethod.POST)
-    public String updateEmpleado(@ModelAttribute EmpleadoEntity dept) {
-        empleadoService.updateEmpleado(dept);
+    public String updateEmpleado(@ModelAttribute EmpleadoEntity empleadoEntity) {
+
+        for(EmpleadoIngresoEntity empleadoIngreso : empleadoEntity.getEmpleadoIngreso()) {
+            empleadoIngreso.setEmpleadoId(empleadoEntity);
+        }
+
+        empleadoService.updateEmpleado(empleadoEntity);
         return "redirect:/empleado/";
     }
 
