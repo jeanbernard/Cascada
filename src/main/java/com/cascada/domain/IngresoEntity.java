@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,6 +31,8 @@ public class IngresoEntity implements Serializable {
     private Long ingresoId;
 
     @Basic
+    @NotNull
+    @Size(min=2, max=200, message = "{Size.ingreso.nombre}")
     @Column(name = "NOMBRE", nullable = false, length = 100)
     private String nombre;
 

@@ -4,13 +4,16 @@ import com.cascada.annotations.Layout;
 import com.cascada.domain.IngresoEntity;
 import com.cascada.service.IngresoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -24,6 +27,9 @@ public class IngresoController {
     @Autowired
     private IngresoService ingresoService;
 
+    @Autowired
+    private MessageSource messageSource;
+
     @RequestMapping(value="/ingreso", method = RequestMethod.GET)
     public String ingreso(Model model) {
         List<IngresoEntity> ingresos = ingresoService.findAllIngresos();
@@ -33,15 +39,21 @@ public class IngresoController {
     }
 
     @RequestMapping(value="/ingreso/crearIngreso", method = RequestMethod.GET)
-    public String crearIngreso(Model model) {
+    public String crearIngreso(Model model, IngresoEntity ingreso) {
         model.addAttribute("page", "ingreso");
-        model.addAttribute("ingreso", new IngresoEntity());
+        model.addAttribute("ingreso", ingreso);
         return "ingreso/crearIngreso";
     }
 
     @RequestMapping(value="ingreso/crearIngreso", method=RequestMethod.POST)
-    public String guardarIngreso(IngresoEntity ingresoEntity) {
-        ingresoService.saveIngreso(ingresoEntity);
+    public String guardarIngreso(@Valid @ModelAttribute("ingreso") IngresoEntity ingreso, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()) {
+            messageSource.getMessage("Size.ingreso.nombre", null, null);
+            return "ingreso/crearIngreso";
+        }
+
+        ingresoService.saveIngreso(ingreso);
         return "redirect:/ingreso/";
     }
 
@@ -57,7 +69,13 @@ public class IngresoController {
     }
 
     @RequestMapping(value="ingreso/editarIngreso", method=RequestMethod.POST)
-    public String updateIngreso(@ModelAttribute IngresoEntity ingreso) {
+    public String updateIngreso(@Valid @ModelAttribute("ingreso") IngresoEntity ingreso, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()) {
+            messageSource.getMessage("Size.ingreso.nombre", null, null);
+            return "ingreso/editarIngreso";
+        }
+
         ingresoService.updateIngreso(ingreso);
         return "redirect:/ingreso/";
     }
