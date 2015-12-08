@@ -48,6 +48,15 @@ public class IngresoController {
     @RequestMapping(value="ingreso/crearIngreso", method=RequestMethod.POST)
     public String guardarIngreso(@Valid @ModelAttribute("ingreso") IngresoEntity ingreso, BindingResult bindingResult) {
 
+        List<IngresoEntity> allIngresos = ingresoService.findAllIngresos();
+
+        for(IngresoEntity ingresoDB : allIngresos) {
+            if(ingresoDB.getNombre().equals(ingreso.getNombre())) {
+                messageSource.getMessage("Size.ingreso.nombre",null,null);
+                return "ingreso/crearIngreso";
+            }
+        }
+
         if(bindingResult.hasErrors()) {
             messageSource.getMessage("Size.ingreso.nombre", null, null);
             return "ingreso/crearIngreso";
