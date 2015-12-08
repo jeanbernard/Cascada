@@ -7,33 +7,34 @@
 <body>
 <div th:fragment="content">
     <div class="container">
-        <form method="post" th:object="${deduccion}" th:action="@{/deduccion/editarDeduccion}">
-            <div class="page-header">
-                <h1>Editar Deduccion</h1>
-            </div>
-            <div class="form-group">
-                <label for="nombre">Nombre</label>
-                <input class="form-control" th:field="*{nombre}" id="nombre" placeholder="Nombre"/>
-            </div>
-            <div class="form-group">
-                <label for="descripcion">Descripción de Deduccion</label>
-                <textarea class="form-control" th:text="${deduccion.descripcion}" th:field="*{descripcion}" id="descripcion" placeholder="Introduzca una descripción"></textarea>
-            </div>
+        <div class="col-md-6">
+            <form method="post" th:object="${deduccion}" th:action="@{/deduccion/editarDeduccion}">
+                <div class="page-header">
+                    <h1>Editar Deduccion</h1>
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input class="form-control" th:field="*{nombre}" id="nombre" placeholder="Nombre"/>
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Descripción de Deduccion</label>
+                    <textarea class="form-control" th:text="${deduccion.descripcion}" th:field="*{descripcion}" id="descripcion" placeholder="Introduzca una descripción"></textarea>
+                </div>
 
-            <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
 
-            <a href="#" th:href="@{/deduccion}">
-                <button type="button" value="cancel" class="btn btn-success">Cancelar
-                </button>
-            </a>
+                <a href="#" th:href="@{/deduccion}">
+                    <button type="button" value="cancel" class="btn btn-success">Cancelar
+                    </button>
+                </a>
 
-            <input type="hidden" id="deduccionId" th:field="*{deduccionId}"
-                   th:value="*{deduccionId}"/>
+                <input type="hidden" id="deduccionId" th:field="*{deduccionId}"
+                       th:value="*{deduccionId}"/>
 
-            <input type="hidden" id="deduccionEstado"
-                   th:field="*{estado}" th:value="*{estado}"/>
-
-        </form>
+                <input type="hidden" id="deduccionEstado"
+                       th:field="*{estado}" th:value="*{estado}"/>
+            </form>
+        </div>
     </div>
 
 
