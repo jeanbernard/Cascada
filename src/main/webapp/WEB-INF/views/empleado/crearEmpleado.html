@@ -56,7 +56,7 @@
 
                 <hr/>
 
-                <div th:each="empleadoIngresos, stat : *{empleadoIngreso}" id="force" class="form-group">
+                <div th:each="empleadoIngresos, stat : *{empleadoIngreso}" id="forceIngreso" class="form-group">
                     <label th:text="${empleadoIngresos.ingresoId.nombre} + ':'">
                     </label>
                     <input class="form-control" autocomplete="off" type="text"
@@ -65,6 +65,24 @@
                     <input autocomplete="off" type="hidden"
                            th:field="*{empleadoIngreso[__${stat.index}__].ingresoId.ingresoId}"
                            placeholder="RD$"/>
+                </div>
+                <p><br/></p>
+
+                <div>
+                    <h3 for="nombre">Deducciones</h3>
+                </div>
+
+                <hr/>
+
+                <div th:each="empleadoDeduccion, stat : *{empleadoDeduccion}" id="forceDeduccion" class="form-group">
+                    <label th:text="${empleadoDeduccion.deduccionId.nombre} + ':'">
+                    </label>
+                    <input class="form-control" autocomplete="off" type="text"
+                           th:field="*{empleadoDeduccion[__${stat.index}__].monto}"
+                           placeholder="RD$0.00"/>
+                    <input autocomplete="off" type="hidden"
+                           th:field="*{empleadoDeduccion[__${stat.index}__].deduccionId.deduccionId}"
+                           placeholder="RD$0.00"/>
                 </div>
                 <p><br/></p>
 

@@ -34,6 +34,9 @@ public class EmpleadoController {
     private IngresoService ingresoService;
 
     @Autowired
+    private DeduccionService deduccionService;
+
+    @Autowired
     private EmpleadoIngresoService empleadoIngresoService;
 
 
@@ -53,10 +56,14 @@ public class EmpleadoController {
         model.addAttribute("page", "empleado");
 
         ArrayList<EmpleadoIngresoEntity> ingreso = new ArrayList<EmpleadoIngresoEntity>();
+        ArrayList<EmpleadoDeduccionEntity> deduccion = new ArrayList<EmpleadoDeduccionEntity>();
+
         EmpleadoEntity empleado = new EmpleadoEntity();
         empleado.setEmpleadoIngreso(ingreso);
+        empleado.setEmpleadoDeduccion(deduccion);
 
         List<IngresoEntity> ingresos = ingresoService.findAllIngresos();
+        List<DeduccionEntity> deducciones = deduccionService.findAllDeducciones();
 
         for (IngresoEntity ingresoCreado : ingresos) {
             EmpleadoIngresoEntity empleadoIngreso = new EmpleadoIngresoEntity();
@@ -65,10 +72,18 @@ public class EmpleadoController {
             empleado.getEmpleadoIngreso().add(empleadoIngreso);
         }
 
+        for (DeduccionEntity deduccionCreado : deducciones) {
+            EmpleadoDeduccionEntity empleadoDeduccion = new EmpleadoDeduccionEntity();
+            empleadoDeduccion.setDeduccionId(deduccionCreado);
+            empleadoDeduccion.setEmpleadoId(empleado);
+            empleado.getEmpleadoDeduccion().add(empleadoDeduccion);
+        }
+
         model.addAttribute("empleado", empleado);
         model.addAttribute("test", new IngresoEntity());
         model.addAttribute("puestos", puestoService.findAllPuestos());
         model.addAttribute("ingresos",ingresoService.findAllIngresos());
+        model.addAttribute("deducciones", deduccionService.findAllDeducciones());
         return "empleado/crearEmpleado";
     }
 
@@ -77,6 +92,10 @@ public class EmpleadoController {
 
         for(EmpleadoIngresoEntity empleadoIngreso : empleadoEntity.getEmpleadoIngreso()) {
             empleadoIngreso.setEmpleadoId(empleadoEntity);
+        }
+
+        for(EmpleadoDeduccionEntity empleadoDeduccion : empleadoEntity.getEmpleadoDeduccion()) {
+            empleadoDeduccion.setEmpleadoId(empleadoEntity);
         }
 
         EmpleadoEntity empleadoCreado = empleadoService.saveEmpleado(empleadoEntity);

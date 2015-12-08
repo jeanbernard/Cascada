@@ -28,7 +28,7 @@ public class EmpleadoIngresoEntity {
 
     @ManyToOne
     @JoinColumn(name="EMPLEADO_ID", nullable = false,
-            foreignKey = @ForeignKey(name = "EMPLEADO_ID_FK"))
+            foreignKey = @ForeignKey(name = "EMPLEADO_DEDUCCION_ID_FK"))
     private EmpleadoEntity empleadoId;
 
 

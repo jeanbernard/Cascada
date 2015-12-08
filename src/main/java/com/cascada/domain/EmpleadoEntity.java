@@ -56,6 +56,10 @@ public class EmpleadoEntity {
     @OneToMany(mappedBy = "empleadoId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<EmpleadoIngresoEntity> empleadoIngreso = new ArrayList<EmpleadoIngresoEntity>();
 
+    @OneToMany(mappedBy = "empleadoId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<EmpleadoDeduccionEntity> empleadoDeduccion = new ArrayList<EmpleadoDeduccionEntity>();
+
+
     public Long getEmpleadoId() {
         return empleadoId;
     }
@@ -129,6 +133,14 @@ public class EmpleadoEntity {
 
     public void setEmpleadoIngreso(List<EmpleadoIngresoEntity> empleados) {
         this.empleadoIngreso = empleados;
+    }
+
+    public List<EmpleadoDeduccionEntity> getEmpleadoDeduccion() {
+        return empleadoDeduccion;
+    }
+
+    public void setEmpleadoDeduccion(List<EmpleadoDeduccionEntity> empleadoDeduccion) {
+        this.empleadoDeduccion = empleadoDeduccion;
     }
 
     @Override
