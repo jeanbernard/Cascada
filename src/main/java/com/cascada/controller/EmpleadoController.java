@@ -127,6 +127,7 @@ public class EmpleadoController {
         EmpleadoEntity empleado = empleadoService.findEmpleado(empleadoId);
 
         List<IngresoEntity> ingresos = ingresoService.findAllIngresos();
+        List<DeduccionEntity> deducciones = deduccionService.findAllDeducciones();
 
         for(IngresoEntity ingreso : ingresos) {
 
@@ -151,6 +152,30 @@ public class EmpleadoController {
 
         }
 
+        for(DeduccionEntity deduccion : deducciones) {
+
+            boolean yaTieneDeduccion = false;
+
+            for(EmpleadoDeduccionEntity empleadoDeduccion : empleado.getEmpleadoDeduccion()) {
+
+                if(deduccion.getDeduccionId().equals(empleadoDeduccion.getDeduccionId().getDeduccionId())) {
+                    yaTieneDeduccion = true;
+                }
+
+            }
+
+            if (yaTieneDeduccion) {
+                continue;
+            }
+
+            EmpleadoDeduccionEntity empleadoDeduccionEntity = new EmpleadoDeduccionEntity();
+            empleadoDeduccionEntity.setEmpleadoId(empleado);
+            empleadoDeduccionEntity.setDeduccionId(deduccion);
+            empleado.getEmpleadoDeduccion().add(empleadoDeduccionEntity);
+
+        }
+
+
         model.addAttribute("page", "empleado");
         model.addAttribute("empleado", empleado);
         model.addAttribute("puestos", puestoService.findAllPuestos());
@@ -163,6 +188,10 @@ public class EmpleadoController {
 
         for(EmpleadoIngresoEntity empleadoIngreso : empleadoEntity.getEmpleadoIngreso()) {
             empleadoIngreso.setEmpleadoId(empleadoEntity);
+        }
+
+        for(EmpleadoDeduccionEntity empleadoDeduccion : empleadoEntity.getEmpleadoDeduccion()) {
+            empleadoDeduccion.setEmpleadoId(empleadoEntity);
         }
 
         empleadoService.updateEmpleado(empleadoEntity);
