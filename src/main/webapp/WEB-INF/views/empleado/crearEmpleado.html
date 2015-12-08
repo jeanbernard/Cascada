@@ -59,9 +59,9 @@
                 <div th:each="empleadoIngresos, stat : *{empleadoIngreso}" id="force" class="form-group">
                     <label th:text="${empleadoIngresos.ingresoId.nombre} + ':'">
                     </label>
-                    <input autocomplete="off" type="text"
+                    <input class="form-control" autocomplete="off" type="text"
                            th:field="*{empleadoIngreso[__${stat.index}__].monto}"
-                           placeholder="RD$"/>
+                           placeholder="RD$0.00"/>
                     <input autocomplete="off" type="hidden"
                            th:field="*{empleadoIngreso[__${stat.index}__].ingresoId.ingresoId}"
                            placeholder="RD$"/>
