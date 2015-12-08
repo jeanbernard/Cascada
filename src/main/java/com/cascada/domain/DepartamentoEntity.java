@@ -3,6 +3,8 @@ package com.cascada.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,8 @@ public class DepartamentoEntity {
     private Long departamentoId;
 
     @Basic
+    @NotNull
+    @Size(min=2, max=200, message = "{Size.departmento.nombre}")
     @Column(name = "NOMBRE", nullable = false, length = 200)
     private String nombre;
 
