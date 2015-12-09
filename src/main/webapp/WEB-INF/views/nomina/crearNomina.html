@@ -28,38 +28,44 @@
 
                 <p><br/></p>
 
-                <div class="table-responsive">
-                    <div class="col-md-8">
-                        <div>
-                            <h3 for="nombre">Ingresos</h3>
-                        </div>
-                        <hr/>
+                <!-- Table -->
 
-                        <div th:each="ingreso, stat : ${ingresos}" id="forceIngreso" class="form-group">
-                            <label th:text="${ingreso.nombre}">
-                            </label>
-                        </div>
-
-                        <p><br/></p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Ingresos</th>
+                                <th>Monto</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="ingreso : ${ingresos}">
+                                <td th:text="${ingreso.nombre}"></td>
+                                <td th:text="100.00"></td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
 
-                    <div>
-
-
-                    </div>
-                    <div>
-                        <h3 for="nombre">Deducciones</h3>
-                    </div>
-
-                    <hr/>
-
-                    <div th:each="deduccion, stat : ${deducciones}" id="forceDeduccion" class="form-group">
-                        <label th:text="${deduccion.nombre}">
-                        </label>
+                    <div class="col-md-6">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Deducciones</th>
+                                <th>Monto</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="deduccion : ${deducciones}">
+                                <td th:text="${deduccion.nombre}"></td>
+                                <td th:text="100.00"></td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
-                <p><br/></p>
 
                 <button type="submit" class="btn btn-primary">Guardar</button>
                 <a href="#" th:href="@{/nomina}">
