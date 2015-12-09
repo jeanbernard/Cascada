@@ -31,7 +31,7 @@ public class NominaEntity {
 
     @Basic
     @Column(name = "ESTADO", nullable = false)
-    private int estado;
+    private Long estado;
 
 
     public Long getNominaId() {
@@ -58,11 +58,11 @@ public class NominaEntity {
         this.descripcion = descripcion;
     }
 
-    public int getEstado() {
+    public Long getEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(Long estado) {
         this.estado = estado;
     }
 
