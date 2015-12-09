@@ -14,14 +14,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by jeanbernard on 12/1/15.
  */
 
 @Controller
-@Layout(value="layouts/default")
+@Layout(value = "layouts/default")
 public class NominaController {
 
     @Autowired
@@ -43,7 +46,7 @@ public class NominaController {
     @Autowired
     private MessageSource messageSource;
 
-    @RequestMapping(value="/nomina", method = RequestMethod.GET)
+    @RequestMapping(value = "/nomina", method = RequestMethod.GET)
     public String nomina(Model model) {
         List<NominaEntity> nominas = nominaService.findAllNominas();
         model.addAttribute("page", "nomina");
@@ -51,7 +54,7 @@ public class NominaController {
         return "nomina/nomina";
     }
 
-    @RequestMapping(value="/nomina/crearNomina", method = RequestMethod.GET)
+    @RequestMapping(value = "/nomina/crearNomina", method = RequestMethod.GET)
     public String crearNomina(Model model, NominaEntity nomina) {
 
         model.addAttribute("page", "nomina");
@@ -60,18 +63,18 @@ public class NominaController {
         return "nomina/crearNomina";
     }
 
-    @RequestMapping(value="nomina/crearNomina", method=RequestMethod.POST)
+    @RequestMapping(value = "nomina/crearNomina", method = RequestMethod.POST)
     public String guardarNomina(@Valid @ModelAttribute("nomina") NominaEntity nomina, BindingResult bindingResult) {
 
         List<NominaEntity> allNominas = nominaService.findAllNominas();
 
-        for(NominaEntity nominaDB : allNominas) {
-            if(nominaDB.getNombre().equals(nomina.getNombre())) {
+        for (NominaEntity nominaDB : allNominas) {
+            if (nominaDB.getNombre().equals(nomina.getNombre())) {
                 return "nomina/crearNomina";
             }
         }
 
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             messageSource.getMessage("Size.nomina.nombre", null, null);
             return "nomina/crearNomina";
         }
@@ -80,28 +83,46 @@ public class NominaController {
         return "redirect:/nomina/";
     }
 
-    @RequestMapping(value="nomina/edit/{nominaId}", method=RequestMethod.GET)
+    @RequestMapping(value = "nomina/edit/{nominaId}", method = RequestMethod.GET)
     public String updateNomina(Model model, @PathVariable(value = "nominaId") Long nominaId) {
+
+        BigDecimal montoTotalIngreso = new BigDecimal(0);
+        Map<String, BigDecimal> montoIngresos = new HashMap<>();
+        Map<String, BigDecimal> force = new HashMap<>();
+        Long empleadoId = 0L;
 
         NominaEntity nomina = nominaService.findNomina(nominaId);
 
         List<EmpleadoIngresoEntity> allEmpleadoIngresos = empleadoIngresoService.findAllEmpleadoIngresos();
-        List<EmpleadoDeduccionEntity> allEmpleadoDeduducciones = empleadoDeduccionService.findAllEmpleadoDeduccion();
         List<IngresoEntity> allIngresos = ingresoService.findAllIngresos();
+        allIngresos.stream().forEach(x -> {
+            BigDecimal montoTotal = BigDecimal.ZERO;
+
+            for (EmpleadoIngresoEntity empleadoIngreso : allEmpleadoIngresos){
+                if(empleadoIngreso.getIngresoId().getIngresoId().equals(x.getIngresoId())){
+                  montoTotal =  montoTotal.add(empleadoIngreso.getMonto());
+                }
+            }
+
+            force.put(x.getNombre(),montoTotal);
+        });
+
+        List<EmpleadoDeduccionEntity> allEmpleadoDeduducciones = empleadoDeduccionService.findAllEmpleadoDeduccion();
         List<DeduccionEntity> allDeducciones = deduccionService.findAllDeducciones();
 
         model.addAttribute("page", "nomina");
         model.addAttribute("nomina", nomina);
         model.addAttribute("ingresos", allIngresos);
         model.addAttribute("deducciones", allDeducciones);
+        model.addAttribute("force", force);
 
         return "/nomina/editarNomina";
     }
 
-    @RequestMapping(value="nomina/editarNomina", method=RequestMethod.POST)
+    @RequestMapping(value = "nomina/editarNomina", method = RequestMethod.POST)
     public String updateNomina(@Valid @ModelAttribute("nomina") NominaEntity nomina, BindingResult bindingResult) {
 
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             messageSource.getMessage("Size.nomina.nombre", null, null);
             return "nomina/editarNomina";
         }
