@@ -54,15 +54,9 @@ public class NominaController {
     @RequestMapping(value="/nomina/crearNomina", method = RequestMethod.GET)
     public String crearNomina(Model model, NominaEntity nomina) {
 
-        List<EmpleadoIngresoEntity> allEmpleadoIngresos = empleadoIngresoService.findAllEmpleadoIngresos();
-        List<EmpleadoDeduccionEntity> allEmpleadoDeduducciones = empleadoDeduccionService.findAllEmpleadoDeduccion();
-        List<IngresoEntity> allIngresos = ingresoService.findAllIngresos();
-        List<DeduccionEntity> allDeducciones = deduccionService.findAllDeducciones();
-
         model.addAttribute("page", "nomina");
         model.addAttribute("nomina", nomina);
-        model.addAttribute("ingresos", allIngresos);
-        model.addAttribute("deducciones", allDeducciones);
+
         return "nomina/crearNomina";
     }
 
@@ -91,8 +85,15 @@ public class NominaController {
 
         NominaEntity nomina = nominaService.findNomina(nominaId);
 
+        List<EmpleadoIngresoEntity> allEmpleadoIngresos = empleadoIngresoService.findAllEmpleadoIngresos();
+        List<EmpleadoDeduccionEntity> allEmpleadoDeduducciones = empleadoDeduccionService.findAllEmpleadoDeduccion();
+        List<IngresoEntity> allIngresos = ingresoService.findAllIngresos();
+        List<DeduccionEntity> allDeducciones = deduccionService.findAllDeducciones();
+
         model.addAttribute("page", "nomina");
         model.addAttribute("nomina", nomina);
+        model.addAttribute("ingresos", allIngresos);
+        model.addAttribute("deducciones", allDeducciones);
 
         return "/nomina/editarNomina";
     }

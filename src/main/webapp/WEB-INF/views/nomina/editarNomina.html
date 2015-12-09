@@ -26,6 +26,44 @@
                     <textarea class="form-control" th:text="${nomina.descripcion}" th:field="*{descripcion}" id="descripcion" placeholder="Introduzca una descripción"></textarea>
                 </div>
 
+                <!-- Table -->
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Ingresos</th>
+                                <th>Monto</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="ingreso : ${ingresos}">
+                                <td th:text="${ingreso.nombre}"></td>
+                                <td th:text="100.00"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-md-6">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Deducciones</th>
+                                <th>Monto</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="deduccion : ${deducciones}">
+                                <td th:text="${deduccion.nombre}"></td>
+                                <td th:text="100.00"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Guardar</button>
 
                 <a href="#" th:href="@{/nomina}">
