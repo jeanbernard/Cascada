@@ -10,7 +10,7 @@
         <div class="col-md-6">
             <form th:method="POST" th:object="${nomina}">
                 <div class="page-header">
-                    <h1 class="crearIngreso">Crear Nomina</h1>
+                    <h1 class="crearIngreso">Crear Nómina</h1>
                 </div>
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
@@ -25,6 +25,41 @@
                     <label for="descripcion">Descripción de la Nomina</label>
                     <textarea class="form-control" th:field="${nomina.descripcion}" id="descripcion" placeholder="Introduzca una descripción"></textarea>
                 </div>
+
+                <p><br/></p>
+
+                <div class="table-responsive">
+                    <div class="col-md-8">
+                        <div>
+                            <h3 for="nombre">Ingresos</h3>
+                        </div>
+                        <hr/>
+
+                        <div th:each="ingreso, stat : ${ingresos}" id="forceIngreso" class="form-group">
+                            <label th:text="${ingreso.nombre}">
+                            </label>
+                        </div>
+
+                        <p><br/></p>
+                    </div>
+
+                    <div>
+
+
+                    </div>
+                    <div>
+                        <h3 for="nombre">Deducciones</h3>
+                    </div>
+
+                    <hr/>
+
+                    <div th:each="deduccion, stat : ${deducciones}" id="forceDeduccion" class="form-group">
+                        <label th:text="${deduccion.nombre}">
+                        </label>
+                    </div>
+                </div>
+
+                <p><br/></p>
 
                 <button type="submit" class="btn btn-primary">Guardar</button>
                 <a href="#" th:href="@{/nomina}">

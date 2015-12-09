@@ -1,8 +1,8 @@
 package com.cascada.controller;
 
 import com.cascada.annotations.Layout;
-import com.cascada.domain.NominaEntity;
-import com.cascada.service.NominaService;
+import com.cascada.domain.*;
+import com.cascada.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -28,6 +28,19 @@ public class NominaController {
     private NominaService nominaService;
 
     @Autowired
+    private IngresoService ingresoService;
+
+    @Autowired
+    private DeduccionService deduccionService;
+
+    @Autowired
+    private EmpleadoIngresoService empleadoIngresoService;
+
+    @Autowired
+    private EmpleadoDeduccionService empleadoDeduccionService;
+
+
+    @Autowired
     private MessageSource messageSource;
 
     @RequestMapping(value="/nomina", method = RequestMethod.GET)
@@ -40,8 +53,16 @@ public class NominaController {
 
     @RequestMapping(value="/nomina/crearNomina", method = RequestMethod.GET)
     public String crearNomina(Model model, NominaEntity nomina) {
+
+        List<EmpleadoIngresoEntity> allEmpleadoIngresos = empleadoIngresoService.findAllEmpleadoIngresos();
+        List<EmpleadoDeduccionEntity> allEmpleadoDeduducciones = empleadoDeduccionService.findAllEmpleadoDeduccion();
+        List<IngresoEntity> allIngresos = ingresoService.findAllIngresos();
+        List<DeduccionEntity> allDeducciones = deduccionService.findAllDeducciones();
+
         model.addAttribute("page", "nomina");
         model.addAttribute("nomina", nomina);
+        model.addAttribute("ingresos", allIngresos);
+        model.addAttribute("deducciones", allDeducciones);
         return "nomina/crearNomina";
     }
 
