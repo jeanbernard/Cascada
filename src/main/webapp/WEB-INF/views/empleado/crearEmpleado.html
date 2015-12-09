@@ -15,7 +15,7 @@
                 </div>
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" th:field="*{nombres}" class="form-control" id="nombres" placeholder="Introduzca nombres"/>
+                    <input type="text" th:field="*{nombres}" class="form-control" id="nombres" placeholder="Introduzca nombres" required="required"/>
                 </div>
                 <div class="form-group">
                     <label for="apellido">Apellidos</label>
@@ -32,8 +32,8 @@
 
 
                 <div class="control-group">
-                    <select class="form-control" id="departamentosDropdown">
-                        <option value="0">Seleccione</option>
+                    <select class="form-control" id="departamentosDropdown" required="required">
+                        <option value="">Seleccione</option>
                     </select>
                 </div>
 
@@ -44,7 +44,8 @@
                 </div>
 
                 <div class="control-group">
-                    <select class="form-control" name="puestos" id="puestosDropdown" th:field="*{puestoEntity.puestoId}">
+                    <select class="form-control" name="puestos" id="puestosDropdown" th:field="*{puestoEntity.puestoId}" required="required">
+                        <option value="">Seleccione</option>
                     </select>
                 </div>
 

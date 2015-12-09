@@ -14,7 +14,7 @@
                 </div>
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" th:field="*{nombre}" class="form-control" id="nombre" placeholder="Nombre"/>
+                    <input type="text" th:field="*{nombre}" class="form-control" id="nombre" placeholder="Nombre" required="required"/>
                 </div>
                 <div class="form-group">
                     <label for="descripcion">Descripción de Puesto</label>
@@ -28,8 +28,8 @@
                 </div>
 
                 <div class="control-group">
-                    <select class="form-control" name="departments" id="departments" th:field="${puesto.departamentoEntity.departamentoId}">
-                        <option value="0">Seleccione</option>
+                    <select required="required" class="form-control" name="departments" id="departments" th:field="${puesto.departamentoEntity.departamentoId}">
+                        <option value="">Seleccione </option>
                         <option
                                 th:each="dept : ${departamentos}"
                                 th:value="${dept.getDepartamentoId()}"

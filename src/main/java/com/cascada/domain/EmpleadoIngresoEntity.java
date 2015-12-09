@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 @NamedQueries({
         @NamedQuery(name=EmpleadoIngresoEntity.FIND_ALL_EMPLEADOS_INGRESOS, query="Select distinct p from EmpleadoIngresoEntity p"),
         @NamedQuery(name=EmpleadoIngresoEntity.FIND_EMPLEADO_INGRESO, query="Select p from EmpleadoIngresoEntity p where p.empleadoId=:empleadoId")
+
 })
 public class EmpleadoIngresoEntity {
 

@@ -10,11 +10,11 @@
         <div class="col-md-6">
             <form method="post" th:object="${nomina}" th:action="@{/nomina/editarNomina}">
                 <div class="page-header">
-                    <h1>Editar Nómina</h1>
+                    <h1>Pagar Nómina</h1>
                 </div>
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input class="form-control" th:field="*{nombre}" id="nombre" placeholder="Nombre"/>
+                    <input class="form-control" th:field="*{nombre}" id="nombre" placeholder="Nombre" />
                 </div>
 
                 <div class="alert alert-danger alert-dismissible" role="alert" th:if="${#fields.hasErrors('nombre')}"
