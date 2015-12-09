@@ -79,10 +79,10 @@ public class NominaController {
     @RequestMapping(value="nomina/editarNomina", method=RequestMethod.POST)
     public String updateNomina(@Valid @ModelAttribute("nomina") NominaEntity nomina, BindingResult bindingResult) {
 
-//        if(bindingResult.hasErrors()) {
-//            messageSource.getMessage("Size.nomina.nombre", null, null);
-//            return "nomina/editarNomina";
-//        }
+        if(bindingResult.hasErrors()) {
+            messageSource.getMessage("Size.nomina.nombre", null, null);
+            return "nomina/editarNomina";
+        }
 
         nominaService.updateNomina(nomina);
         return "redirect:/nomina/";
