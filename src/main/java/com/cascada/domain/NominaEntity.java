@@ -7,24 +7,41 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "NOMINA", schema = "Cascada", catalog = "")
+@NamedQueries({
+        @NamedQuery(name=NominaEntity.FIND_ALL_NOMINAS, query="Select distinct d from NominaEntity d"),
+        @NamedQuery(name=NominaEntity.FIND_NOMINA, query="Select d from NominaEntity d where d.nominaId=:deptId")
+})
 public class NominaEntity {
-    private int nominaId;
-    private String nombre;
-    private String descripcion;
-    private int estado;
+
+    public static final String FIND_ALL_NOMINAS = "findAllNominas";
+    public static final String FIND_NOMINA = "findNomina";
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "NOMINA_ID", nullable = false)
-    public int getNominaId() {
-        return nominaId;
-    }
-
-    public void setNominaId(int nominaId) {
-        this.nominaId = nominaId;
-    }
+    private Long nominaId;
 
     @Basic
     @Column(name = "NOMBRE", nullable = false, length = 100)
+    private String nombre;
+
+    @Basic
+    @Column(name = "DESCRIPCION", nullable = true, length = 150)
+    private String descripcion;
+
+    @Basic
+    @Column(name = "ESTADO", nullable = false)
+    private int estado;
+
+
+    public Long getNominaId() {
+        return nominaId;
+    }
+
+    public void setNominaId(Long nominaId) {
+        this.nominaId = nominaId;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -33,8 +50,6 @@ public class NominaEntity {
         this.nombre = nombre;
     }
 
-    @Basic
-    @Column(name = "DESCRIPCION", nullable = true, length = 150)
     public String getDescripcion() {
         return descripcion;
     }
@@ -43,8 +58,6 @@ public class NominaEntity {
         this.descripcion = descripcion;
     }
 
-    @Basic
-    @Column(name = "ESTADO", nullable = false)
     public int getEstado() {
         return estado;
     }
@@ -66,14 +79,5 @@ public class NominaEntity {
         if (descripcion != null ? !descripcion.equals(that.descripcion) : that.descripcion != null) return false;
 
         return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = nominaId;
-        result = 31 * result + (nombre != null ? nombre.hashCode() : 0);
-        result = 31 * result + (descripcion != null ? descripcion.hashCode() : 0);
-        result = 31 * result + estado;
-        return result;
     }
 }

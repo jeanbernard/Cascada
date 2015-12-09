@@ -52,7 +52,6 @@ public class IngresoController {
 
         for(IngresoEntity ingresoDB : allIngresos) {
             if(ingresoDB.getNombre().equals(ingreso.getNombre())) {
-                messageSource.getMessage("Size.ingreso.nombre",null,null);
                 return "ingreso/crearIngreso";
             }
         }
