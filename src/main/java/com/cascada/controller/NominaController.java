@@ -48,18 +48,18 @@ public class NominaController {
     @RequestMapping(value="nomina/crearNomina", method=RequestMethod.POST)
     public String guardarNomina(@Valid @ModelAttribute("nomina") NominaEntity nomina, BindingResult bindingResult) {
 
-//        List<NominaEntity> allNominas = nominaService.findAllNominas();
-//
-//        for(NominaEntity nominaDB : allNominas) {
-//            if(nominaDB.getNombre().equals(nomina.getNombre())) {
-//                return "nomina/crearNomina";
-//            }
-//        }
-//
-//        if(bindingResult.hasErrors()) {
-//            messageSource.getMessage("Size.nomina.nombre", null, null);
-//            return "nomina/crearNomina";
-//        }
+        List<NominaEntity> allNominas = nominaService.findAllNominas();
+
+        for(NominaEntity nominaDB : allNominas) {
+            if(nominaDB.getNombre().equals(nomina.getNombre())) {
+                return "nomina/crearNomina";
+            }
+        }
+
+        if(bindingResult.hasErrors()) {
+            messageSource.getMessage("Size.nomina.nombre", null, null);
+            return "nomina/crearNomina";
+        }
 
         nominaService.saveNomina(nomina);
         return "redirect:/nomina/";
