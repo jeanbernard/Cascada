@@ -38,6 +38,7 @@ public class IngresoServiceImpl implements IngresoService {
 
     @Override
     public IngresoEntity updateIngreso(IngresoEntity ingreso) {
+        ingreso.setEstado(1L);
         return ingresoRepository.updateIngreso(ingreso);
     }
 }

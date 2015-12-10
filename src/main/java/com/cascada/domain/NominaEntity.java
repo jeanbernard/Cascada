@@ -1,30 +1,51 @@
 package com.cascada.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Created by jeanbernard on 11/26/15.
  */
 @Entity
 @Table(name = "NOMINA", schema = "Cascada", catalog = "")
+@NamedQueries({
+        @NamedQuery(name=NominaEntity.FIND_ALL_NOMINAS, query="Select distinct d from NominaEntity d"),
+        @NamedQuery(name=NominaEntity.FIND_NOMINA, query="Select d from NominaEntity d where d.nominaId=:nominaId")
+})
 public class NominaEntity {
-    private int nominaId;
-    private String nombre;
-    private String descripcion;
-    private int estado;
+
+    public static final String FIND_ALL_NOMINAS = "findAllNominas";
+    public static final String FIND_NOMINA = "findNomina";
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "NOMINA_ID", nullable = false)
-    public int getNominaId() {
+    private Long nominaId;
+
+    @Basic
+    @NotNull
+    @Size(min=2, max=200, message = "{Size.nomina.nombre}")
+    @Column(name = "NOMBRE", nullable = false, length = 100)
+    private String nombre;
+
+    @Basic
+    @Column(name = "DESCRIPCION", nullable = true, length = 150)
+    private String descripcion;
+
+    @Basic
+    @Column(name = "ESTADO", nullable = false)
+    private Long estado;
+
+
+    public Long getNominaId() {
         return nominaId;
     }
 
-    public void setNominaId(int nominaId) {
+    public void setNominaId(Long nominaId) {
         this.nominaId = nominaId;
     }
 
-    @Basic
-    @Column(name = "NOMBRE", nullable = false, length = 100)
     public String getNombre() {
         return nombre;
     }
@@ -33,8 +54,6 @@ public class NominaEntity {
         this.nombre = nombre;
     }
 
-    @Basic
-    @Column(name = "DESCRIPCION", nullable = true, length = 150)
     public String getDescripcion() {
         return descripcion;
     }
@@ -43,13 +62,11 @@ public class NominaEntity {
         this.descripcion = descripcion;
     }
 
-    @Basic
-    @Column(name = "ESTADO", nullable = false)
-    public int getEstado() {
+    public Long getEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(Long estado) {
         this.estado = estado;
     }
 
@@ -66,14 +83,5 @@ public class NominaEntity {
         if (descripcion != null ? !descripcion.equals(that.descripcion) : that.descripcion != null) return false;
 
         return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = nominaId;
-        result = 31 * result + (nombre != null ? nombre.hashCode() : 0);
-        result = 31 * result + (descripcion != null ? descripcion.hashCode() : 0);
-        result = 31 * result + estado;
-        return result;
     }
 }

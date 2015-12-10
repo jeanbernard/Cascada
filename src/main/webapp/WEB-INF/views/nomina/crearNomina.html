@@ -8,13 +8,13 @@
 <div th:fragment="content">
     <div class="container">
         <div class="col-md-6">
-            <form th:method="POST" th:object="${ingreso}">
+            <form th:method="POST" th:object="${nomina}">
                 <div class="page-header">
-                    <h1 class="crearIngreso">Crear Ingreso</h1>
+                    <h1 class="crearIngreso">Crear Nómina</h1>
                 </div>
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" th:field="${ingreso.nombre}" class="form-control" id="nombre" placeholder="Nombre"/>
+                    <input type="text" th:field="${nomina.nombre}" class="form-control" id="nombre" placeholder="Nombre"/>
                 </div>
 
                 <div class="alert alert-danger alert-dismissible" role="alert" th:if="${#fields.hasErrors('nombre')}"
@@ -22,12 +22,15 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="descripcion">Descripción del Ingreso</label>
-                    <textarea class="form-control" th:field="${ingreso.descripcion}" id="descripcion" placeholder="Introduzca una descripción"></textarea>
+                    <label for="descripcion">Descripción de la Nomina</label>
+                    <textarea class="form-control" th:field="${nomina.descripcion}" id="descripcion" placeholder="Introduzca una descripción"></textarea>
                 </div>
 
+                <p><br/></p>
+
+
                 <button type="submit" class="btn btn-primary">Guardar</button>
-                <a href="#" th:href="@{/ingreso}">
+                <a href="#" th:href="@{/nomina}">
                     <button type="button" value="cancel" class="btn btn-success">Cancelar
                     </button>
                 </a>

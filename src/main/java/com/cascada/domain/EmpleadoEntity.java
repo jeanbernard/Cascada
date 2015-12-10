@@ -48,13 +48,16 @@ public class EmpleadoEntity {
     @Column(name = "CREADO_EN", nullable = false)
     private Date creadoEn = new Date();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "PUESTO_ID", nullable = false,
             foreignKey = @ForeignKey(name = "PUESTO_ID_FK"))
     private PuestoEntity puestoEntity;
 
-    @OneToMany(mappedBy = "empleadoId", cascade = CascadeType.ALL)
-    private List<EmpleadoIngresoEntity> empleados = new ArrayList<EmpleadoIngresoEntity>();
+    @OneToMany(mappedBy = "empleadoId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<EmpleadoIngresoEntity> empleadoIngreso = new ArrayList<EmpleadoIngresoEntity>();
+
+    @OneToMany(mappedBy = "empleadoId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<EmpleadoDeduccionEntity> empleadoDeduccion = new ArrayList<EmpleadoDeduccionEntity>();
 
 
     public Long getEmpleadoId() {
@@ -124,12 +127,20 @@ public class EmpleadoEntity {
         this.puestoEntity = empleadoEntity;
     }
 
-    public List<EmpleadoIngresoEntity> getEmpleados() {
-        return empleados;
+    public List<EmpleadoIngresoEntity> getEmpleadoIngreso() {
+        return empleadoIngreso;
     }
 
-    public void setEmpleados(List<EmpleadoIngresoEntity> empleados) {
-        this.empleados = empleados;
+    public void setEmpleadoIngreso(List<EmpleadoIngresoEntity> empleados) {
+        this.empleadoIngreso = empleados;
+    }
+
+    public List<EmpleadoDeduccionEntity> getEmpleadoDeduccion() {
+        return empleadoDeduccion;
+    }
+
+    public void setEmpleadoDeduccion(List<EmpleadoDeduccionEntity> empleadoDeduccion) {
+        this.empleadoDeduccion = empleadoDeduccion;
     }
 
     @Override

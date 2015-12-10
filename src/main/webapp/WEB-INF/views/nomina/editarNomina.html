@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+<body>
+<div th:fragment="content">
+    <div class="container">
+        <div class="col-md-6">
+            <form method="post" th:object="${nomina}" th:action="@{/nomina/editarNomina}">
+                <div class="page-header">
+                    <h1>Pagar Nómina</h1>
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input class="form-control" th:field="*{nombre}" id="nombre" placeholder="Nombre" />
+                </div>
+
+                <div class="alert alert-danger alert-dismissible" role="alert" th:if="${#fields.hasErrors('nombre')}"
+                     th:errors="*{nombre}" aria-label="close" data-dismiss="alert">
+                </div>
+
+                <div class="form-group">
+                    <label for="descripcion">Descripción de Nomina</label>
+                    <textarea class="form-control" th:text="${nomina.descripcion}" th:field="*{descripcion}" id="descripcion" placeholder="Introduzca una descripción"></textarea>
+                </div>
+
+                <!-- Table -->
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Ingresos</th>
+                                <th>Monto</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="force : ${force}">
+                                <td th:text="${force.getKey()}"></td>
+                                <td th:text="${force.getValue()}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-md-6">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Deducciones</th>
+                                <th>Monto</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="deduccion : ${deducciones}">
+                                <td th:text="${deduccion.nombre}"></td>
+                                <td th:text="100.00"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Guardar</button>
+
+                <a href="#" th:href="@{/nomina}">
+                    <button type="button" value="cancel" class="btn btn-success">Cancelar
+                    </button>
+                </a>
+
+                <input type="hidden" id="nominaId" th:field="*{nominaId}"
+                       th:value="*{nominaId}"/>
+
+                <input type="hidden" id="nominaEstado"
+                       th:field="*{estado}" th:value="*{estado}"/>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>

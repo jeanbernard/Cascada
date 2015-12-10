@@ -1,6 +1,7 @@
 package com.cascada.service;
 
 import com.cascada.domain.EmpleadoIngresoEntity;
+import com.cascada.domain.IngresoEntity;
 
 import java.util.List;
 

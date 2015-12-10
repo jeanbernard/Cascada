@@ -7,42 +7,44 @@
 <body>
 <div th:fragment="content">
     <div class="container">
-        <form th:method="POST" th:object="${puesto}">
-            <div class="page-header">
-                <h1 class="crearPuesto">Crear Puesto</h1>
-            </div>
-            <div class="form-group">
-                <label for="nombre">Nombre</label>
-                <input type="text" th:field="*{nombre}" class="form-control" id="nombre" placeholder="Nombre"/>
-            </div>
-            <div class="form-group">
-                <label for="descripcion">Descripción de Puesto</label>
-                <textarea class="form-control" th:field="*{descripcion}" id="descripcion" placeholder="Introduzca una descripción"></textarea>
-            </div>
+        <div class="col-md-6">
+            <form th:method="POST" th:object="${puesto}">
+                <div class="page-header">
+                    <h1 class="crearPuesto">Crear Puesto</h1>
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" th:field="*{nombre}" class="form-control" id="nombre" placeholder="Nombre" required="required"/>
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Descripción de Puesto</label>
+                    <textarea class="form-control" th:field="*{descripcion}" id="descripcion" placeholder="Introduzca una descripción"></textarea>
+                </div>
 
-            <div>
-                <label for="nombre">Departamentos</label>
-            </div>
+                <hr/>
 
-            <div class="control-group">
-               <select name="departments" id="departments" th:field="${puesto.departamentoEntity.departamentoId}">
-                   <option value="0">Seleccione</option>
-                   <option
-                           th:each="dept : ${departamentos}"
-                           th:value="${dept.getDepartamentoId()}"
-                           th:text="${dept.getNombre()}">
-                   </option>
-               </select>
-            </div>
+                <div>
+                    <h3>Departamentos</h3>
+                </div>
 
-            <p><br/></p>
-
-            <button type="submit" class="btn btn-primary">Guardar</button>
-            <a href="#" th:href="@{/puesto}">
-                <button type="button" value="cancel" class="btn btn-success">Cancelar
-                </button>
-            </a>
-        </form>
+                <div class="control-group">
+                    <select required="required" class="form-control" name="departments" id="departments" th:field="${puesto.departamentoEntity.departamentoId}">
+                        <option value="">Seleccione </option>
+                        <option
+                                th:each="dept : ${departamentos}"
+                                th:value="${dept.getDepartamentoId()}"
+                                th:text="${dept.getNombre()}">
+                        </option>
+                    </select>
+                </div>
+                <p><br/></p>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="#" th:href="@{/puesto}">
+                    <button type="button" value="cancel" class="btn btn-success">Cancelar
+                    </button>
+                </a>
+            </form>
+        </div>
     </div>
 
 </div>

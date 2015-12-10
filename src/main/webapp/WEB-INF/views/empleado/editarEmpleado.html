@@ -7,61 +7,114 @@
 <body>
 <div th:fragment="content">
     <div class="container">
-        <form method="post" th:object="${empleado}" th:action="@{/empleado/editarEmpleado}">
-            <div class="page-header">
-                <h1 class="editarEmpleado">Editar Empleado</h1>
-            </div>
-            <div class="form-group">
-                <label for="nombre">Nombre</label>
-                <input class="form-control" th:field="*{nombres}" id="nombre" placeholder="Nombre"/>
-            </div>
-            <div class="form-group">
-                <label for="descripcion">Apellidos</label>
-                <input class="form-control" th:field="*{apellidos}" id="descripcion" placeholder="Introduzca una descripción"/>
-            </div>
-            <div class="form-group">
-                <label for="nombre">Correo Electrónico</label>
-                <input type="text" th:field="*{correo}" class="form-control" id="correo" placeholder="ejemplo@direccion.com"/>
-            </div>
+        <div class="col-md-6">
+            <form method="post" th:object="${empleado}" th:action="@{/empleado/editarEmpleado}">
+                <div class="page-header">
+                    <h1 class="editarEmpleado">Editar Empleado</h1>
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input class="form-control" th:field="*{nombres}" id="nombre" placeholder="Nombre"/>
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Apellidos</label>
+                    <input class="form-control" th:field="*{apellidos}" id="descripcion" placeholder="Introduzca una descripción"/>
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Correo Electrónico</label>
+                    <input type="text" th:field="*{correo}" class="form-control" id="correo" placeholder="ejemplo@direccion.com"/>
+                </div>
 
-            <div>
-                <label for="nombre">Departamentos</label>
-            </div>
+                <div>
+                    <label for="nombre">Departamentos</label>
+                </div>
 
 
-            <div class="control-group">
-                <select id="departamentosDropdown">
-                    <option value="0">Seleccione</option>
-                </select>
-            </div>
+                <div class="control-group">
+                    <select class="form-control" id="departamentosDropdown">
+                        <option value="0">Seleccione</option>
+                    </select>
+                </div>
 
-            <p><br/></p>
+                <p><br/></p>
 
-            <div>
-                <label for="nombre">Puestos</label>
-            </div>
+                <div>
+                    <label for="nombre">Puestos</label>
+                </div>
 
-            <div class="control-group">
-                <select name="puestos" id="puestosDropdown" th:field="${empleado.puestoEntity.puestoId}">
-                </select>
-            </div>
+                <div class="control-group">
+                    <select class="form-control" name="puestos" id="puestosDropdown" th:field="${empleado.puestoEntity.puestoId}">
+                    </select>
+                </div>
 
-            <p><br/></p>
+                <p><br/></p>
 
-            <button type="submit" class="btn btn-primary">Guardar</button>
+                <div>
+                    <h3 for="nombre">Ingresos</h3>
+                </div>
 
-            <a href="#" th:href="@{/empleado}">
-                <button type="button" value="cancel" class="btn btn-success">Cancelar
-                </button>
-            </a>
+                <hr/>
 
-            <input type="hidden" id="empleadoId" th:field="*{empleadoId}"
-                   th:value="*{empleadoId}"/>
+                <div th:each="empleadoIngresos, stat : *{empleadoIngreso}" id="forceIngreso" class="form-group">
+                    <label th:text="${empleadoIngresos.ingresoId.nombre} + ':'">
+                    </label>
+                    <input class="form-control"  autocomplete="off" type="text"
+                           th:field="*{empleadoIngreso[__${stat.index}__].monto}"
+                           placeholder="RD$"/>
+                    <input autocomplete="off" type="hidden"
+                           th:field="*{empleadoIngreso[__${stat.index}__].ingresoId.ingresoId}"
+                           placeholder="RD$"/>
+                    <input autocomplete="off" type="hidden"
+                           th:field="*{empleadoIngreso[__${stat.index}__].empleadoIngresoId}"
+                           placeholder="RD$"/>
+                </div>
+                <p><br/></p>
 
-            <input type="hidden" id="empleadoEstado"
-                   th:field="*{estado}" th:value="*{estado}"/>
+                <div>
+                    <h3 for="nombre">Deducciones</h3>
+                </div>
 
-        </form>
+                <hr/>
+
+                <div th:each="empleadoDeducciones, stat : *{empleadoDeduccion}" id="forceDeduccion" class="form-group">
+                    <label th:text="${empleadoDeducciones.deduccionId.nombre} + ':'">
+                    </label>
+                    <input class="form-control"  autocomplete="off" type="text"
+                           th:field="*{empleadoDeduccion[__${stat.index}__].monto}"
+                           placeholder="RD$"/>
+                    <input autocomplete="off" type="hidden"
+                           th:field="*{empleadoDeduccion[__${stat.index}__].deduccionId.deduccionId}"
+                           placeholder="RD$"/>
+                    <input autocomplete="off" type="hidden"
+                           th:field="*{empleadoDeduccion[__${stat.index}__].empleadoDeduccionId}"
+                           placeholder="RD$"/>
+                </div>
+                <p><br/></p>
+
+                <button type="submit" class="btn btn-primary">Guardar</button>
+
+                <a href="#" th:href="@{/empleado}">
+                    <button type="button" value="cancel" class="btn btn-success">Cancelar
+                    </button>
+                </a>
+
+                <input type="hidden" id="empleadoId" th:field="*{empleadoId}"
+                       th:value="*{empleadoId}"/>
+
+                <input type="hidden" id="empleadoEstado"
+                       th:field="*{estado}" th:value="*{estado}"/>
+
+                <input type="hidden" id="deptEmpleado"
+                       th:field="${empleado.puestoEntity.departamentoEntity.departamentoId}"
+                />
+
+                <input type="hidden" id="puestoId"
+                       th:field="${empleado.puestoEntity.puestoId}"
+                />
+
+            </form>
+
+        </div>
     </div>
 
 

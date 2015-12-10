@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +20,7 @@ import java.util.List;
         @NamedQuery(name=IngresoEntity.FIND_ALL_INGRESOS, query="Select distinct p from IngresoEntity p"),
         @NamedQuery(name=IngresoEntity.FIND_INGRESO, query="Select p from IngresoEntity p where p.ingresoId=:ingresoId")
 })
-public class IngresoEntity {
+public class IngresoEntity implements Serializable {
 
     public static final String FIND_ALL_INGRESOS = "findAllIngresos";
     public static final String FIND_INGRESO = "findIngreso";
@@ -28,6 +31,8 @@ public class IngresoEntity {
     private Long ingresoId;
 
     @Basic
+    @NotNull
+    @Size(min=2, max=200, message = "{Size.ingreso.nombre}")
     @Column(name = "NOMBRE", nullable = false, length = 100)
     private String nombre;
 

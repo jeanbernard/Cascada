@@ -45,7 +45,7 @@ public class PuestoEntity {
     @Column(name = "CREADO_EN", nullable = false)
     private Date creadoEn = new Date();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "DEPARTAMENTO_ID", nullable = false,
             foreignKey = @ForeignKey(name = "DEPARTAMENTO_ID_FK"))
     private DepartamentoEntity departamentoEntity;

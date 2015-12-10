@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +34,9 @@ public class EmpleadoController {
     private IngresoService ingresoService;
 
     @Autowired
+    private DeduccionService deduccionService;
+
+    @Autowired
     private EmpleadoIngresoService empleadoIngresoService;
 
 
@@ -49,19 +54,52 @@ public class EmpleadoController {
     @RequestMapping(value = "/empleado/crearEmpleado", method = RequestMethod.GET)
     public String crearEmpleado(Model model) {
         model.addAttribute("page", "empleado");
-        model.addAttribute("empleado", new EmpleadoEntity());
-        model.addAttribute("empleadoIngreso", new EmpleadoIngresoEntity());
+
+        ArrayList<EmpleadoIngresoEntity> ingreso = new ArrayList<EmpleadoIngresoEntity>();
+        ArrayList<EmpleadoDeduccionEntity> deduccion = new ArrayList<EmpleadoDeduccionEntity>();
+
+        EmpleadoEntity empleado = new EmpleadoEntity();
+        empleado.setEmpleadoIngreso(ingreso);
+        empleado.setEmpleadoDeduccion(deduccion);
+
+        List<IngresoEntity> ingresos = ingresoService.findAllIngresos();
+        List<DeduccionEntity> deducciones = deduccionService.findAllDeducciones();
+
+        for (IngresoEntity ingresoCreado : ingresos) {
+            EmpleadoIngresoEntity empleadoIngreso = new EmpleadoIngresoEntity();
+            empleadoIngreso.setIngresoId(ingresoCreado);
+            empleadoIngreso.setEmpleadoId(empleado);
+            empleado.getEmpleadoIngreso().add(empleadoIngreso);
+        }
+
+        for (DeduccionEntity deduccionCreado : deducciones) {
+            EmpleadoDeduccionEntity empleadoDeduccion = new EmpleadoDeduccionEntity();
+            empleadoDeduccion.setDeduccionId(deduccionCreado);
+            empleadoDeduccion.setEmpleadoId(empleado);
+            empleado.getEmpleadoDeduccion().add(empleadoDeduccion);
+        }
+
+        model.addAttribute("empleado", empleado);
+        model.addAttribute("test", new IngresoEntity());
         model.addAttribute("puestos", puestoService.findAllPuestos());
         model.addAttribute("ingresos",ingresoService.findAllIngresos());
+        model.addAttribute("deducciones", deduccionService.findAllDeducciones());
         return "empleado/crearEmpleado";
     }
 
-    @RequestMapping(value="empleado/crearEmpleado", method=RequestMethod.POST)
-    public String guardarEmpleado(EmpleadoEntity empleadoEntity, EmpleadoIngresoEntity empleadoIngresoEntity, Model model) {
+    @RequestMapping(value="/empleado/crearEmpleado", method=RequestMethod.POST)
+    public String guardarEmpleado(EmpleadoEntity empleadoEntity, EmpleadoIngresoEntity empleadoIngresoEntity) {
+
+        for(EmpleadoIngresoEntity empleadoIngreso : empleadoEntity.getEmpleadoIngreso()) {
+            empleadoIngreso.setEmpleadoId(empleadoEntity);
+        }
+
+        for(EmpleadoDeduccionEntity empleadoDeduccion : empleadoEntity.getEmpleadoDeduccion()) {
+            empleadoDeduccion.setEmpleadoId(empleadoEntity);
+        }
+
         EmpleadoEntity empleadoCreado = empleadoService.saveEmpleado(empleadoEntity);
-        EmpleadoEntity empleado = empleadoService.findEmpleado(empleadoCreado.getEmpleadoId());
-        //model.addAttribute("test", empleado.getEmpleadoId());
-        empleadoIngresoService.saveEmpleadoIngreso(empleadoIngresoEntity, empleado.getEmpleadoId());
+
         return "redirect:/empleado/";
     }
 
@@ -88,6 +126,56 @@ public class EmpleadoController {
 
         EmpleadoEntity empleado = empleadoService.findEmpleado(empleadoId);
 
+        List<IngresoEntity> ingresos = ingresoService.findAllIngresos();
+        List<DeduccionEntity> deducciones = deduccionService.findAllDeducciones();
+
+        for(IngresoEntity ingreso : ingresos) {
+
+            boolean yaTieneIngreso = false;
+
+            for(EmpleadoIngresoEntity empleadoIngreso : empleado.getEmpleadoIngreso()) {
+
+                if(ingreso.getIngresoId().equals(empleadoIngreso.getIngresoId().getIngresoId())) {
+                    yaTieneIngreso = true;
+                }
+
+            }
+
+            if (yaTieneIngreso) {
+                continue;
+            }
+
+            EmpleadoIngresoEntity empleadoIngresoEntity = new EmpleadoIngresoEntity();
+            empleadoIngresoEntity.setEmpleadoId(empleado);
+            empleadoIngresoEntity.setIngresoId(ingreso);
+            empleado.getEmpleadoIngreso().add(empleadoIngresoEntity);
+
+        }
+
+        for(DeduccionEntity deduccion : deducciones) {
+
+            boolean yaTieneDeduccion = false;
+
+            for(EmpleadoDeduccionEntity empleadoDeduccion : empleado.getEmpleadoDeduccion()) {
+
+                if(deduccion.getDeduccionId().equals(empleadoDeduccion.getDeduccionId().getDeduccionId())) {
+                    yaTieneDeduccion = true;
+                }
+
+            }
+
+            if (yaTieneDeduccion) {
+                continue;
+            }
+
+            EmpleadoDeduccionEntity empleadoDeduccionEntity = new EmpleadoDeduccionEntity();
+            empleadoDeduccionEntity.setEmpleadoId(empleado);
+            empleadoDeduccionEntity.setDeduccionId(deduccion);
+            empleado.getEmpleadoDeduccion().add(empleadoDeduccionEntity);
+
+        }
+
+
         model.addAttribute("page", "empleado");
         model.addAttribute("empleado", empleado);
         model.addAttribute("puestos", puestoService.findAllPuestos());
@@ -96,8 +184,17 @@ public class EmpleadoController {
     }
 
     @RequestMapping(value="empleado/editarEmpleado", method=RequestMethod.POST)
-    public String updateEmpleado(@ModelAttribute EmpleadoEntity dept) {
-        empleadoService.updateEmpleado(dept);
+    public String updateEmpleado(@ModelAttribute EmpleadoEntity empleadoEntity) {
+
+        for(EmpleadoIngresoEntity empleadoIngreso : empleadoEntity.getEmpleadoIngreso()) {
+            empleadoIngreso.setEmpleadoId(empleadoEntity);
+        }
+
+        for(EmpleadoDeduccionEntity empleadoDeduccion : empleadoEntity.getEmpleadoDeduccion()) {
+            empleadoDeduccion.setEmpleadoId(empleadoEntity);
+        }
+
+        empleadoService.updateEmpleado(empleadoEntity);
         return "redirect:/empleado/";
     }
 
