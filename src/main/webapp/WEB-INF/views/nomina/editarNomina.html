@@ -14,7 +14,7 @@
                 </div>
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input class="form-control" th:field="*{nombre}" id="nombre" placeholder="Nombre" />
+                    <p class="label-control" th:text="*{nombre}" id="nombre"></p>
                 </div>
 
                 <div class="alert alert-danger alert-dismissible" role="alert" th:if="${#fields.hasErrors('nombre')}"
@@ -23,7 +23,7 @@
 
                 <div class="form-group">
                     <label for="descripcion">Descripción de Nomina</label>
-                    <textarea class="form-control" th:text="${nomina.descripcion}" th:field="*{descripcion}" id="descripcion" placeholder="Introduzca una descripción"></textarea>
+                    <p th:text="${nomina.descripcion}" id="descripcion"></p>
                 </div>
 
                 <!-- Table -->
