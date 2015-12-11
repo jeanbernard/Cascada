@@ -62,7 +62,62 @@
                             </tbody>
                         </table>
                     </div>
+
+
                 </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Total de Ingresos</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td th:text="${montoTotalIngreso}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-md-6">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Total de Deducciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td th:text="${montoTotalDeduccion}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Ingresos Netos</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td th:text="${ingresosNetos}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+
 
                 <button type="submit" class="btn btn-primary">Guardar</button>
 

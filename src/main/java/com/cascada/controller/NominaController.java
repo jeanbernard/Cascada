@@ -87,6 +87,7 @@ public class NominaController {
     public String updateNomina(Model model, @PathVariable(value = "nominaId") Long nominaId) {
 
         BigDecimal montoTotalIngreso = new BigDecimal(0);
+        BigDecimal montoTotalDeduccion = new BigDecimal(0);
         Map<String, BigDecimal> montoIngresos = new HashMap<>();
         Map<String, BigDecimal> ingreso = new HashMap<>();
         Map<String, BigDecimal> deduccion = new HashMap<>();
@@ -120,12 +121,24 @@ public class NominaController {
             deduccion.put(x.getNombre(),montoTotal);
         });
 
+
+        for (EmpleadoIngresoEntity empleadoIngreso : allEmpleadoIngresos) {
+            montoTotalIngreso = montoTotalIngreso.add(empleadoIngreso.getMonto());
+        }
+
+        for (EmpleadoDeduccionEntity empleadoDeduccion : allEmpleadoDeducciones) {
+            montoTotalDeduccion = montoTotalDeduccion.add(empleadoDeduccion.getMonto());
+        }
+
+        BigDecimal ingresosNetos = montoTotalIngreso.subtract(montoTotalDeduccion);
+
         model.addAttribute("page", "nomina");
         model.addAttribute("nomina", nomina);
-        model.addAttribute("ingresos", allIngresos);
-        model.addAttribute("deducciones", allDeducciones);
         model.addAttribute("ingreso", ingreso);
         model.addAttribute("deduccion", deduccion);
+        model.addAttribute("montoTotalIngreso", montoTotalIngreso);
+        model.addAttribute("montoTotalDeduccion", montoTotalDeduccion);
+        model.addAttribute("ingresosNetos", ingresosNetos);
 
         return "/nomina/editarNomina";
     }
