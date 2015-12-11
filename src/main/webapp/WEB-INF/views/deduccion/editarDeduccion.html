@@ -16,6 +16,12 @@
                     <label for="nombre">Nombre</label>
                     <input class="form-control" th:field="*{nombre}" id="nombre" placeholder="Nombre"/>
                 </div>
+
+                <div class="alert alert-danger alert-dismissible" role="alert" th:if="${#fields.hasErrors('nombre')}"
+                     th:errors="*{nombre}" aria-label="close" data-dismiss="alert">
+                </div>
+
+
                 <div class="form-group">
                     <label for="descripcion">Descripción de Deduccion</label>
                     <textarea class="form-control" th:text="${deduccion.descripcion}" th:field="*{descripcion}" id="descripcion" placeholder="Introduzca una descripción"></textarea>

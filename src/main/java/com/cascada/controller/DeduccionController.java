@@ -4,13 +4,16 @@ import com.cascada.annotations.Layout;
 import com.cascada.domain.DeduccionEntity;
 import com.cascada.service.DeduccionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -24,6 +27,9 @@ public class DeduccionController {
     @Autowired
     private DeduccionService deduccionService;
 
+    @Autowired
+    private MessageSource messageSource;
+
     @RequestMapping(value="/deduccion", method = RequestMethod.GET)
     public String deduccion(Model model) {
         List<DeduccionEntity> deducciones = deduccionService.findAllDeducciones();
@@ -33,15 +39,21 @@ public class DeduccionController {
     }
 
     @RequestMapping(value="/deduccion/crearDeduccion", method = RequestMethod.GET)
-    public String crearDeduccion(Model model) {
+    public String crearDeduccion(Model model, DeduccionEntity deduccion) {
         model.addAttribute("page", "deduccion");
-        model.addAttribute("deduccion", new DeduccionEntity());
+        model.addAttribute("deduccion", deduccion);
         return "deduccion/crearDeduccion";
     }
 
     @RequestMapping(value="deduccion/crearDeduccion", method=RequestMethod.POST)
-    public String guardarDeduccion(DeduccionEntity deduccionEntity) {
-        deduccionService.saveDeduccion(deduccionEntity);
+    public String guardarDeduccion(@Valid @ModelAttribute ("deduccion") DeduccionEntity deduccion, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()) {
+            messageSource.getMessage("Size.deduccion.nombre", null, null);
+            return "deduccion/crearDeduccion";
+        }
+
+        deduccionService.saveDeduccion(deduccion);
         return "redirect:/deduccion/";
     }
 
@@ -57,7 +69,13 @@ public class DeduccionController {
     }
 
     @RequestMapping(value="deduccion/editarDeduccion", method=RequestMethod.POST)
-    public String updateDeduccion(@ModelAttribute DeduccionEntity deduccion) {
+    public String updateDeduccion(@Valid @ModelAttribute ("deduccion") DeduccionEntity deduccion, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()) {
+            messageSource.getMessage("Size.deduccion.nombre", null, null);
+            return "deduccion/editarDeduccion";
+        }
+
         deduccionService.updateDeduccion(deduccion);
         return "redirect:/deduccion/";
     }

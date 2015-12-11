@@ -6,10 +6,13 @@ import com.cascada.domain.PuestoEntity;
 import com.cascada.service.DepartamentoService;
 import com.cascada.service.PuestoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -26,6 +29,9 @@ public class PuestoController {
     @Autowired
     private DepartamentoService departamentoService;
 
+    @Autowired
+    private MessageSource messageSource;
+
 
     @RequestMapping(value="/puesto", method = RequestMethod.GET)
     public String puesto(Model model) {
@@ -36,16 +42,22 @@ public class PuestoController {
     }
 
     @RequestMapping(value="/puesto/crearPuesto", method = RequestMethod.GET)
-    public String crearPuesto(Model model) {
+    public String crearPuesto(Model model, PuestoEntity puesto) {
         model.addAttribute("page", "puesto");
-        model.addAttribute("puesto", new PuestoEntity());
+        model.addAttribute("puesto", puesto);
         model.addAttribute("departamentos", departamentoService.findAllDepartments());
         return "puesto/crearPuesto";
     }
 
     @RequestMapping(value="puesto/crearPuesto", method=RequestMethod.POST)
-    public String guardarPuesto(PuestoEntity puestoEntity) {
-        puestoService.savePuesto(puestoEntity);
+    public String guardarPuesto(@Valid @ModelAttribute ("puesto") PuestoEntity puesto, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()) {
+            messageSource.getMessage("Size.deduccion.nombre", null, null);
+            return "puesto/crearPuesto";
+        }
+
+        puestoService.savePuesto(puesto);
         return "redirect:/puesto/";
     }
 
@@ -62,15 +74,16 @@ public class PuestoController {
     }
 
     @RequestMapping(value="puesto/editarPuesto", method=RequestMethod.POST)
-    public String updatepuesto(@ModelAttribute PuestoEntity puesto) {
+    public String updatepuesto(@Valid @ModelAttribute ("puesto") PuestoEntity puesto, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()) {
+            messageSource.getMessage("Size.puesto.nombre", null, null);
+            return "/puesto/editarPuesto";
+        }
+
+
         puestoService.updatePuesto(puesto);
         return "redirect:/puesto/";
     }
-
-//    @RequestMapping(value="puesto/crearPuesto/json/departamentos", method = RequestMethod.GET)
-//    public @ResponseBody List<DepartamentoEntity> findAllDepartments() {
-//        return departamentoService.findAllDepartments();
-//    }
-
 
 }

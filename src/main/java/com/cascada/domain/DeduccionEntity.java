@@ -1,6 +1,8 @@
 package com.cascada.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
@@ -23,6 +25,8 @@ public class DeduccionEntity {
     private Long deduccionId;
 
     @Basic
+    @NotNull
+    @Size(min=2, max=200, message = "{Size.deduccion.nombre}")
     @Column(name = "NOMBRE", nullable = false, length = 100)
     private String nombre;
 
