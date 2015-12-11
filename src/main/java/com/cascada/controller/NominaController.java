@@ -88,8 +88,8 @@ public class NominaController {
 
         BigDecimal montoTotalIngreso = new BigDecimal(0);
         Map<String, BigDecimal> montoIngresos = new HashMap<>();
-        Map<String, BigDecimal> force = new HashMap<>();
-        Long empleadoId = 0L;
+        Map<String, BigDecimal> ingreso = new HashMap<>();
+        Map<String, BigDecimal> deduccion = new HashMap<>();
 
         NominaEntity nomina = nominaService.findNomina(nominaId);
 
@@ -104,17 +104,28 @@ public class NominaController {
                 }
             }
 
-            force.put(x.getNombre(),montoTotal);
+            ingreso.put(x.getNombre(),montoTotal);
         });
 
-        List<EmpleadoDeduccionEntity> allEmpleadoDeduducciones = empleadoDeduccionService.findAllEmpleadoDeduccion();
+        List<EmpleadoDeduccionEntity> allEmpleadoDeducciones = empleadoDeduccionService.findAllEmpleadoDeduccion();
         List<DeduccionEntity> allDeducciones = deduccionService.findAllDeducciones();
+        allDeducciones.stream().forEach(x -> {
+            BigDecimal montoTotal = BigDecimal.ZERO;
+
+            for (EmpleadoDeduccionEntity empleadoDeduccion : allEmpleadoDeducciones){
+                if(empleadoDeduccion.getDeduccionId().getDeduccionId().equals(x.getDeduccionId())){
+                    montoTotal =  montoTotal.add(empleadoDeduccion.getMonto());
+                }
+            }
+            deduccion.put(x.getNombre(),montoTotal);
+        });
 
         model.addAttribute("page", "nomina");
         model.addAttribute("nomina", nomina);
         model.addAttribute("ingresos", allIngresos);
         model.addAttribute("deducciones", allDeducciones);
-        model.addAttribute("force", force);
+        model.addAttribute("ingreso", ingreso);
+        model.addAttribute("deduccion", deduccion);
 
         return "/nomina/editarNomina";
     }

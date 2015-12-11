@@ -38,9 +38,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="force : ${force}">
-                                <td th:text="${force.getKey()}"></td>
-                                <td th:text="${force.getValue()}"></td>
+                            <tr th:each="ingreso : ${ingreso}">
+                                <td th:text="${ingreso.getKey()}"></td>
+                                <td th:text="${ingreso.getValue()}"></td>
                             </tr>
                             </tbody>
                         </table>
@@ -55,9 +55,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="deduccion : ${deducciones}">
-                                <td th:text="${deduccion.nombre}"></td>
-                                <td th:text="100.00"></td>
+                            <tr th:each="deduccion : ${deduccion}">
+                                <td th:text="${deduccion.getKey()}"></td>
+                                <td th:text="${deduccion.getValue()}"></td>
                             </tr>
                             </tbody>
                         </table>
