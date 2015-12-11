@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +42,9 @@ public class NominaController {
 
     @Autowired
     private EmpleadoDeduccionService empleadoDeduccionService;
+
+    @Autowired
+    private EmpleadoService empleadoService;
 
 
     @Autowired
@@ -154,5 +158,52 @@ public class NominaController {
         nominaService.updateNomina(nomina);
         return "redirect:/nomina/";
     }
+
+    @RequestMapping(value="/nomina/detalleNomina", method = RequestMethod.GET)
+    public String detalleNomina(Model model) {
+
+        List<EmpleadoDeduccionEntity> allEmpleadoDeducciones = empleadoDeduccionService.findAllEmpleadoDeduccion();
+
+        List<EmpleadoIngresoEntity> empleadoIngresoEntities = empleadoIngresoService.findAllEmpleadoIngresos();
+        Map<String, BigDecimal> empleados = new HashMap<>();
+
+
+        for(EmpleadoIngresoEntity empleadoIngreso : empleadoIngresoEntities) {
+            empleadoIngreso.getEmpleadoId().getNombres();
+        }
+
+        List<EmpleadoIngresoEntity> allEmpleadoIngresos = empleadoIngresoService.findAllEmpleadoIngresos();
+        List<EmpleadoEntity> allEmpleados = empleadoService.findAllEmpleados();
+
+        allEmpleados.stream().forEach(x -> {
+
+            BigDecimal montoTotal = BigDecimal.ZERO;
+
+            for (EmpleadoIngresoEntity empleadoIngreso : allEmpleadoIngresos){
+                if(empleadoIngreso.getEmpleadoId().getNombres().equals(x.getNombres())){
+                    montoTotal =  montoTotal.add(empleadoIngreso.getMonto());
+                }
+            }
+
+            BigDecimal montoTotalDeduccion = new BigDecimal(0);
+
+            for (EmpleadoDeduccionEntity empleadoDeduccion : allEmpleadoDeducciones) {
+                if(empleadoDeduccion.getEmpleadoId().getNombres().equals(x.getNombres())){
+                    montoTotalDeduccion = montoTotalDeduccion.add(empleadoDeduccion.getMonto());
+                }
+
+            }
+            empleados.put(x.getNombres(), montoTotal.subtract(montoTotalDeduccion));
+        });
+
+
+
+        model.addAttribute("page", "nomina");
+        model.addAttribute("empleados", empleados);
+
+        return "nomina/detalleNomina";
+    }
+
+
 
 }

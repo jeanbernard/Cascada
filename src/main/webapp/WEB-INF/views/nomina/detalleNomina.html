@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+
+<body>
+<div th:fragment="content">
+    <div class="container">
+        <form th:action="@{/empleado/crearEmpleado/}" method="get">
+            <div class="page-header">
+                <h1>Detalle Nómina</h1>
+            </div>
+            <!-- Create Button -->
+            <!--<button type="submit" class="btn btn-primary">-->
+                <!--<span class="glyphicon glyphicon-plus"></span>Crear-->
+            <!--</button>-->
+            <!--<p><br/></p>-->
+            <!-- Table -->
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Nombres</th>
+                        <th>Ingresos Netos</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="empleados : ${empleados}">
+                        <td th:text="${empleados.getKey()}"></td>
+                        <td th:text="${empleados.getValue()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <a href="#" th:href="@{/nomina}">
+                <button type="button" value="cancel" class="btn btn-success">Regresar
+                </button>
+            </a>
+
+        </form>
+    </div>
+
+</div>
+</body>
+</html>
